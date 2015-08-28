@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Đăng Ký</title>
+        <link rel="shortcut icon" href="/EnglishVocabulary/images/icon_fav.ico" />
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport' />
+        <!-- Bootstrap 3.3.2 -->
+        <link href="/EnglishVocabulary/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- Theme style -->
+        <link href="/EnglishVocabulary/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+        <!-- Font Awesome Icons -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body class="register-page">
+        <div class="register-box" style="margin:2% auto">
+            <div class="register-logo"> <a href=""><b>English</b>Vocabulary</a> </div>
+            <div class="register-box-body">
+                <p class="login-box-msg">Đăng ký một tài khoản mới</p>
+                <h:form>
+                    <h:messages style="color:red;" showDetail="false" />
+                    <div class="form-group has-feedback">
+                        <h:outputLabel value="Họ tên:" />
+                        <h:inputText id="username" class="form-control" a:placeholder="Họ tên" 
+                                     required="true" requiredMessage="Bạn chưa nhập họ tên" />
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span> 
+                    </div>
+                    <div class="form-group has-feedback">
+                        <h:outputLabel value="Email:" />
+                        <h:inputText id="email" class="form-control" a:placeholder="Email"
+                                     required="true" requiredMessage="Bạn chưa nhập email" />
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span> 
+                    </div>
+                    <div class="form-group has-feedback">
+                        <h:outputLabel value="Mật khẩu:" />
+                        <h:inputText id="password" class="form-control" a:placeholder="Mật khẩu"
+                                     required="true" requiredMessage="Bạn chưa nhập mật khẩu" />
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span> 
+                    </div>
+                    <div class="form-group has-feedback">
+                        <h:outputLabel value="Nhập lại mật khẩu:" />
+                        <h:inputText id="rePassword" class="form-control" a:placeholder="Nhập lại mật khẩu" />
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span> 
+                    </div>
+                    <div class="row"> 
+                        <div class="col-xs-4">
+                            <h:commandButton id="register" class="btn btn-primary btn-block btn-flat" value="Đăng ký" />
+                        </div>
+                    </div>
+                </h:form>
+                <a href="login.xhtml" class="text-center" style="text-decoration:underline;">Tôi đã có một tài khoản.</a> 
+            </div>
+        </div>
+    </h:body>
+</html>
