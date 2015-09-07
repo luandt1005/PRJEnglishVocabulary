@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>English Vocabulary</title>
     </h:head>
@@ -17,12 +18,58 @@
                         <li class="active">Bảng điều khiển</li>
                     </ol>
                 </section>
-                <section class="content">
-                    <div class="box box-primary">
-                        <p:dataTable >
 
+                <section class="content">
+                    <!--<div class="box box-primary">-->
+                    <h:form>
+                        <p:dataTable var="khachHang"
+                                     id="list"
+                                     rowIndexVar="rowIndex"
+                                     emptyMessage="Không có dữ liệu."
+                                     rows="10"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15">
+                            <f:facet name="header">
+                                <p:outputPanel autoUpdate="true" id="action">
+                                    <p:commandButton icon="fa fa-remove" value="Xóa" style="float: left" oncomplete="PF('deleteMultiItem').show();" />
+                                    <p:commandButton icon="fa fa-refresh" value="Làm mới" style="float: left" onclick="window.location.replace(window.location.href)" />
+                                </p:outputPanel >
+                            </f:facet>
+                            <p:ajax event="rowSelectCheckbox" />
+                            <p:ajax event="rowSelect" />
+                            <p:column headerText="STT" style="width: 50px; text-align: center;" >
+                                <h:outputText value="dffh" />
+                            </p:column>
+
+                            <p:column headerText="Tên khách hàng">
+                                <h:outputText value="hdh" />
+                            </p:column>
+                            <p:column headerText="Tên đăng nhập">
+                                <h:outputText value="dhf" />
+                            </p:column>
+                            <p:column headerText="Địa chỉ">
+                                <h:outputText value="dhf" />
+                            </p:column>
+                            <p:column headerText="Email">
+                                <h:outputText value="" />
+                            </p:column>
+                            <p:column headerText="Hành động" >
+                                <p:commandButton value="dhfh"  oncomplete="PF('updateItem').show();"/>
+                                <p:commandButton value="Xóa" oncomplete="PF('deleteOneItem').show();"/>
+                            </p:column>
+                            <p:column selectionMode="multiple" style="width: 35px; text-align: center;" />
                         </p:dataTable>
-                    </div>
+                    </h:form>
+                    <p:dialog widgetVar="deleteMultiItem" closable="false" modal="true" header="Hệ thống" resizable="false">
+                        <p:outputPanel style="text-align:center;">
+                            <h:outputText value="Bạn có thật sự muốn xóa bản ghi?" />
+                        </p:outputPanel>
+                        <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('deleteMultiItem').hide();" />
+                        <p:commandButton value="Xóa" icon="ui-icon-check" style="margin-top: 10px" oncomplete="PF('deleteMultiItem').hide();" />
+                    </p:dialog>
+                    <!--</div>-->
                 </section>
             </ui:define>
         </ui:composition>

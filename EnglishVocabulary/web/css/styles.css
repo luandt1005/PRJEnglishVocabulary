@@ -1,0 +1,68 @@
+.ui-panelgrid {
+    border: none;
+}
+.ui-widget-content .ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+}
+.ui-panelgrid tr,
+.ui-panelgrid td {
+    border: none;
+}
+
+.ui-panelgrid {
+    border: none;
+}
+.ui-panel{
+    border: none;
+    /*border-radius: 0;*/
+    
+}
+.ui-widget-content .ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+}
+.ui-panelgrid tr,
+.ui-panelgrid td {
+    border: none;
+}
+.ui-growl-item {
+    display: block;
+    padding: 10px 15px;
+    /*background-color: #c2dfef;*/
+    /*color: black;*/
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.ui-widget{
+    font-size: 13px;
+/*    font-style: italic;*/
+}
+
+.ui-datatable-header {
+    height: 33px;
+    border-radius: 0px;
+}
+
+.ui-dialog {
+    border-radius: 0;
+}
+
+.ui-corner-bottom {
+    border-radius: 0;
+}
+
+.ui-widget-header {
+    border-radius: 0;
+}
+
+.ui-button {
+    border-radius: 0;
+}
+
+.ui-paginator-rpp-options {
+    border-radius: 0;
+}
+
+.ui-state-default {
+    border-radius: 0;
+}
+

@@ -14,9 +14,11 @@ import java.io.Serializable;
 public class Administrator implements Serializable {
     private int id;
     private String username;
-    private String email;
+    private String fullname;
     private String password;
     private String rePassword;
+    private int access;
+    private int status;
     private boolean remember;
 
     public int getId() {
@@ -35,12 +37,12 @@ public class Administrator implements Serializable {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getPassword() {
@@ -65,6 +67,22 @@ public class Administrator implements Serializable {
 
     public void setRemember(boolean remember) {
         this.remember = remember;
+    }
+
+    public int getAccess() {
+        return access;
+    }
+
+    public void setAccess(int access) {
+        this.access = access;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
     
 }

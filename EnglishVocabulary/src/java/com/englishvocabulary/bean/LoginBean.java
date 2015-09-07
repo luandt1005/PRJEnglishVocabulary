@@ -64,8 +64,8 @@ public class LoginBean extends MessageUtil{
 
     public boolean validateData() throws Exception {
 //        boolean check = true;
-        if (a.getEmail().equals("luandt")) {
-            a.setUsername("Đinh Thế Luân");
+        if (a.getUsername().equals("luandt")) {
+            a.setFullname("DinhTheLuan");
             return true;
         } else {
             addErrorMsg("Sai tài khoản hoặc mật khẩu");
