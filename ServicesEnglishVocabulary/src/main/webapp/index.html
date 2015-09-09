@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <p>
+            [{"table":"categories","id_clien":1,"sql":"null,'1','Family','1'"},{"table":"categories","id_clien":2,"sql":"null,'2','luandt','1'"},{"table":"categories","id_clien":3,"sql":"null,'3','ngadv','1'"}]</br></br>
+            {"error":0,"success":1,"row":[{"table":"categories","id_client":"1","id_server":"18"},{"table":"categories","id_client":"2","id_server":"19"},{"table":"categories","id_client":"3","id_server":"20"}]}</br></br>
+            excuteDelete: json=[{"table":"vocabularies","sql":""},{"table":"categories","sql":"20,18"}] </br></br>
+            [{"table":"vocabularies","voca_id":1,"sql":"english='say cheese1', vietnamese='cười lên nào'"},{"table":"vocabularies","voca_id":5,"sql":"english='dog1', vietnamese='con chó'"},{"table":"categories","cate_id":1,"sql":"name='Animal 1'"},{"table":"categories","cate_id":2,"sql":"name='Câu nói cửa miệng 1'"}]
+        </p>
+
+        <h1>all data</h1>
+        <form method="POST" action="http://localhost:8080/ServicesEnglishVocabulary/rest/vocabulary/alldata">
+            <input type="text" name="username" placeholder="username" />
+            <input type="text" name="userId" placeholder="userId" />
+            <input type="submit" value="submit" />
+        </form>
+        <h1>Insert</h1>
+        <form method="POST" action="http://localhost:8080/ServicesEnglishVocabulary/rest/vocabulary/insert">
+            <input type="text" name="userId" placeholder="userId" />
+            <input type="text" name="username" placeholder="username" />
+            <input type="text" name="json" placeholder="json" />
+            <input type="submit" value="submit" />
+        </form>
+        <h1>Update</h1>
+        <form method="POST" action="http://localhost:8080/ServicesEnglishVocabulary/rest/vocabulary/update">
+            <input type="text" name="userId" placeholder="userId" />
+            <input type="text" name="username" placeholder="username" />
+            <input type="text" name="json" placeholder="json" />
+            <input type="submit" value="submit" />
+        </form>
+        <h1>Delete</h1>
+        <form method="POST" action="http://localhost:8080/ServicesEnglishVocabulary/rest/vocabulary/delete">
+            <input type="text" name="userId" placeholder="userId" />
+            <input type="text" name="username" placeholder="username" />
+            <input type="text" name="json" placeholder="json" />
+            <input type="submit" value="submit" />
+        </form>
+
+        <h1>user login</h1>
+        <form method="POST" action="http://localhost:8080/ServicesEnglishVocabulary/rest/user/login">
+            <input type="text" name="username" placeholder="username" />
+            <input type="text" name="password" placeholder="password" />
+            <input type="submit" value="submit" />
+        </form>
+
+        <h1>add user</h1>
+        <form method="POST" action="http://localhost:8080/ServicesEnglishVocabulary/rest/user/add">
+            <input type="text" name="username" placeholder="username" />
+            <input type="text" name="password" placeholder="password" />
+            <input type="text" name="fullname" placeholder="fullname" />
+            <input type="submit" value="submit" />
+        </form>
+
+        <h1>add feedback</h1>
+        <form method="POST" action="http://localhost:8080/ServicesEnglishVocabulary/rest/feedback/add">
+            <input type="text" name="content" placeholder="content" />
+            <input type="submit" value="submit" />
+        </form>
+
+        <h1>delete feedback</h1>
+        <form method="POST" action="http://localhost:8080/ServicesEnglishVocabulary/rest/feedback/delete">
+            <input type="text" name="id" placeholder="id" />
+            <input type="submit" value="submit" />
+        </form>
+
+        <h1>delete list feedback</h1>
+        <form method="POST" action="http://localhost:8080/ServicesEnglishVocabulary/rest/feedback/deletelist">
+            <input type="text" name="id" placeholder="id" />
+            <input type="submit" value="submit" />
+        </form>
+    </body>
+</html>
