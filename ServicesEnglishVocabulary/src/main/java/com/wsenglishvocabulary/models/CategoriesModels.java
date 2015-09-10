@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class CategoriesModels {
 
     //get All Vocabulary by user_id
-
     public ArrayList<Categories> getAllCategoriesByUserID(long user_id) throws Exception {
         ArrayList<Categories> data = new ArrayList<Categories>();
         Statement statement = null;
@@ -45,26 +44,5 @@ public class CategoriesModels {
             DbPool.releaseConnection(c, statement, resultSet);
         }
         return data;
-    }
-
-    //insert
-    public long addCategori(String sql) throws Exception {
-        long id = -1;
-        PreparedStatement ps = null;
-        Connection c = null;
-        try {
-            c = DbPool.getConnection();
-            ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            rs.next();
-            id = rs.getInt(1);
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            DbPool.releaseConnection(c, ps);
-        }
-        return id;
     }
 }

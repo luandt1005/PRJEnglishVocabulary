@@ -160,4 +160,28 @@ public class Result {
         return object;
     }
 
+    //success insert voca, cate
+    public static JSONObject successInsertVoca(ArrayList<ResultInsertVoca> arr) {
+        JSONObject object = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        JSONObject row;
+        try {
+            for (int i = 0; i < arr.size(); i++) {
+                row = new JSONObject();
+                row.put("table", arr.get(i).getTable());
+                row.put("id_client", arr.get(i).getId_client());
+                row.put("id_server", arr.get(i).getId_server());
+                jsonArray.put(row);
+            }
+            object.put("success", 1);
+            object.put("error", 0);
+            object.put("total", arr.size());
+            object.put("row", jsonArray);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return object;
+    }
 }

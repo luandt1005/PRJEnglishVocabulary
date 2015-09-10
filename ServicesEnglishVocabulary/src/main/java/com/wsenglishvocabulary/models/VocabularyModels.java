@@ -17,6 +17,7 @@ import java.util.ArrayList;
  * @author LuanDT
  */
 public class VocabularyModels {
+
     //get All Vocabulary by user_id
     public ArrayList<Vocabulary> getAllVocabularyByUserID(long user_id) throws Exception {
         ArrayList<Vocabulary> data = new ArrayList<Vocabulary>();
@@ -46,9 +47,9 @@ public class VocabularyModels {
         }
         return data;
     }
-    
+
     //insert
-    public long addVocabulary(String sql) throws Exception {
+    public long addData(String sql) throws Exception {
         long id = -1;
         PreparedStatement ps = null;
         Connection c = null;
@@ -66,5 +67,43 @@ public class VocabularyModels {
             DbPool.releaseConnection(c, ps);
         }
         return id;
+    }
+
+    //update
+    public boolean updateData(String sql) throws Exception {
+        boolean result = false;
+        PreparedStatement ps = null;
+        Connection c = null;
+        try {
+            c = DbPool.getConnection();
+            ps = c.prepareStatement(sql);
+
+            ps.executeUpdate();
+            result = true;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            DbPool.releaseConnection(c, ps);
+        }
+        return result;
+    }
+
+    //delete
+    public boolean deleteData(String sql) throws Exception {
+        boolean result = false;
+        PreparedStatement ps = null;
+        Connection c = null;
+        try {
+            c = DbPool.getConnection();
+            ps = c.prepareStatement(sql);
+
+            ps.executeUpdate();
+            result = true;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            DbPool.releaseConnection(c, ps);
+        }
+        return result;
     }
 }

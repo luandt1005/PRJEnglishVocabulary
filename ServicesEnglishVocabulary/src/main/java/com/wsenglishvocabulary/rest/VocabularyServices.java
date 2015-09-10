@@ -8,6 +8,7 @@ package com.wsenglishvocabulary.rest;
 import com.wsenglishvocabulary.models.Categories;
 import com.wsenglishvocabulary.models.CategoriesModels;
 import com.wsenglishvocabulary.models.Result;
+import com.wsenglishvocabulary.models.ResultInsertVoca;
 import com.wsenglishvocabulary.models.UsersModels;
 import com.wsenglishvocabulary.models.Vocabulary;
 import com.wsenglishvocabulary.models.VocabularyModels;
@@ -79,6 +80,7 @@ public class VocabularyServices {
     @Path("/insert")
     public JSONObject insert(@FormParam("username") String username, @FormParam("userId") String userId, @FormParam("json") String json) {
         JSONObject result = new JSONObject();
+        ArrayList<ResultInsertVoca> arrResultInsert = new ArrayList<ResultInsertVoca>();
         try {
             boolean checkUserID = um.checkUserID(Long.parseLong(userId));
             if (checkUserID) {
@@ -87,12 +89,15 @@ public class VocabularyServices {
                     JSONObject object = jsonArray.getJSONObject(i);
 
                     String sql = "INSERT INTO " + object.getString("table") + " VALUES (" + object.getString("sql").substring(5) + ");";
-                    long idInsert = vm.addVocabulary(sql);
+                    long id_server = vm.addData(sql);
                     String id_clien = object.getString("id_clien");
                     String table = object.getString("table");
                     
-                    System.out.println("idserver: " + idInsert + "---id_clien: " + id_clien + "---table: " + table);
+                    if(id_server != -1){
+                        arrResultInsert.add(new ResultInsertVoca(table, id_clien, "" + id_server));
+                    }
                 }
+                result = Result.successInsertVoca(arrResultInsert);
             } else {
                 result = Result.error("Tài khoản không tồn tại!");
             }
@@ -111,18 +116,19 @@ public class VocabularyServices {
         try {
             boolean checkUserID = um.checkUserID(Long.parseLong(userId));
             if (checkUserID) {
+                String sql;
                 JSONArray jsonArray = new JSONArray(json);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
                     String table = object.getString("table");
                     if (table.equals("vocabularies")) {
-                        String sql = "UPDATE " + table + " SET " + object.getString("sql") + " WHERE voca_id = " + object.getString("voca_id") + ";";
-
+                        sql = "UPDATE " + table + " SET " + object.getString("sql") + " WHERE voca_id = " + object.getString("voca_id") + ";";
                     } else {
-                        String sql = "UPDATE " + table + " SET " + object.getString("sql") + " WHERE cate_id = " + object.getString("cate_id") + ";";
-
+                        sql = "UPDATE " + table + " SET " + object.getString("sql") + " WHERE cate_id = " + object.getString("cate_id") + ";";
                     }
+                    boolean check = vm.updateData(sql);
                 }
+                result = Result.success();
             } else {
                 result = Result.error("Tài khoản không tồn tại!");
             }
@@ -141,18 +147,19 @@ public class VocabularyServices {
         try {
             boolean checkUserID = um.checkUserID(Long.parseLong(userId));
             if (checkUserID) {
+                String sql;
                 JSONArray jsonArray = new JSONArray(json);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
                     String table = object.getString("table");
                     if (table.equals("vocabularies")) {
-                        String sql = "DELETE FROM " + table + " WHERE voca_id IN(" + object.getString("sql") + ");";
-
+                        sql = "DELETE FROM " + table + " WHERE voca_id IN(" + object.getString("sql") + ");";
                     } else {
-                        String sql = "DELETE FROM " + table + " WHERE cate_id IN(" + object.getString("sql") + ");";
-
+                        sql = "DELETE FROM " + table + " WHERE cate_id IN(" + object.getString("sql") + ");";
                     }
+                    boolean check = vm.updateData(sql);
                 }
+                result = Result.success();
             } else {
                 result = Result.error("Tài khoản không tồn tại!");
             }
