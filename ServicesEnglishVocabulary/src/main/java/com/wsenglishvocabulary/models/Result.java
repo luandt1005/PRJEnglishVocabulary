@@ -101,7 +101,7 @@ public class Result {
             for (int i = 0; i < arr.size(); i++) {
                 row = new JSONObject();
                 row.put("id", arr.get(i).getId());
-                row.put("username", arr.get(i).getContent());
+                row.put("content", arr.get(i).getContent());
                 jsonArray.put(row);
             }
             object.put("success", 1);
