@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Phản hồi người dùng</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="content">
+                <section class="content-header">
+                    <h1> Trang chủ <small>Phản hồi người dùng</small> </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="index.xhtml"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+                        <li class="active">Phản hồi người dùng</li>
+                    </ol>
+                </section>
+
+                <section class="content">
+                    <h:form id="main">
+                        <p:dataTable var="f"
+                                     id="table"
+                                     value="#{feedbackBean.data}"
+                                     rowKey="#{f.id}"
+                                     rowIndexVar="rowIndex"
+                                     emptyMessage="Không có dữ liệu."
+                                     selection="#{feedbackBean.dataSelected}"
+                                     rows="10"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15">
+                            <f:facet name="header">
+                                <p:outputPanel autoUpdate="true" id="action">
+                                    <p:commandButton icon="fa fa-remove" value="Xóa" disabled="#{feedbackBean.disableBtnDelete}" style="float: left" oncomplete="PF('deleteMultiItem').show();" />
+                                    <p:commandButton icon="fa fa-refresh" value="Làm mới" style="float: left" onclick="window.location.replace(window.location.href)" />
+                                </p:outputPanel >
+                            </f:facet>
+                            <p:ajax event="rowSelectCheckbox" listener="#{feedbackBean.onRowCheckboxSelect}" update="action"/>
+                            <p:ajax event="rowSelect" listener="#{feedbackBean.onRowCheckboxSelect}" update="action"/>
+                            <p:column headerText="STT" style="width: 50px; text-align: center;" >
+                                <h:outputText value="#{rowIndex + 1}" />
+                            </p:column>
+
+                            <p:column headerText="Nội dung">
+                                <h:outputText value="#{f.content}" />
+                            </p:column>
+                            
+                            <p:column selectionMode="multiple" style="width: 35px; text-align: center;" />
+                        </p:dataTable>  
+                    </h:form>
+                    <p:dialog widgetVar="deleteMultiItem" closable="false" modal="true" header="Hệ thống" resizable="false">
+                        <p:outputPanel style="text-align:center;">
+                            <h:outputText value="Bạn có thật sự muốn xóa bản ghi?" />
+                        </p:outputPanel>
+                        <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 10px" oncomplete="PF('deleteMultiItem').hide();" />
+                        <p:commandButton value="Xóa" icon="ui-icon-check" style="margin-top: 10px" oncomplete="PF('deleteMultiItem').hide();" />
+                    </p:dialog>
+                </section>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

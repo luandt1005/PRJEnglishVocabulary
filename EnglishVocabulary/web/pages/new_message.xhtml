@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Tin nhắn mới</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="content">
+                <section class="content-header">
+                    <h1> Trang chủ <small>Tin nhắn mới</small> </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="index.xhtml"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+                        <li class="active">Tin nhắn mới</li>
+                    </ol>
+                </section>
+
+                <section class="content">
+                    
+                </section>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
+<!--                    <div class="row">
+                                             left column 
+                                            <div class="col-md-12">
+                                                 general form elements 
+                                                <div class="box box-primary">
+                                                    <div class="box-header">
+                                                        <h3 class="box-title">Tạo Tin Nhắn Mới</h3>
+                                                    </div> /.box-header 
+                                                     form start 
+                                                    <form action="" method="post" name="formaddmsg" onsubmit="return kiemtraformadd()">
+                                                        <div class="box-body">
+                                                            <div class="row">
+                                                                left
+                                                                <div style="float:left" class="col-md-6">
+                                                                    <div class="col-md-12">
+                                                                        <div class="col-xs-6">
+                                                                            <label for="exampleInputEmail1">Tiêu đề</label>
+                                                                            <input type="text" name="uTitle" class="form-control" />
+                                                                        </div>
+                    
+                                                                        <div class="form-group col-xs-6">
+                                                                            <label>Ngày gửi tin</label> <i>(Năm/Tháng/Ngày)</i>
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-addon">
+                                                                                    <i class="fa fa-calendar"></i>
+                                                                                </div>
+                                                                                <input type="text" name="uDateSend" class="form-control pull-right" id="reservation"/>
+                                                                            </div> /.input group 
+                                                                        </div> /.form group 
+                                                                        <div class="col-xs-12">
+                                                                            <label>Loại tin nhắn</label>
+                                                                            <select name="uMsgType" class="form-control">
+                                                                                <option value="0">Chọn loại tin nhắn</option>
+                                                                                <?php
+                                                                                $dataMsgType = array();
+                                                                                $dataMsgType = $msgType->getMsgType();
+                                                                                for($i = 0; $i < count($dataMsgType); $i++){
+                                                                                echo'<option value="'.$dataMsgType[$i]['msg_type_id'].'">'.$dataMsgType[$i]['name'].'</option>';
+                                                                                }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div style="margin-top: 13px" class="col-xs-12">
+                                                                            <label>Gửi đến</label>
+                                                                            <select name="uSendTo" class="form-control">
+                                                                                <option value="0">Chọn danh mục ứng dụng </option>
+                                                                                <?php
+                                                                                $dataAppType = array();
+                                                                                $dataAppType = $appType->getAllAppType();
+                                                                                for($i = 0; $i < count($dataAppType); $i++){
+                                                                                echo'<option value="'.$dataAppType[$i]['app_type_id'].'">'.$dataAppType[$i]['name'].'</option>';
+                                                                                }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div style="margin-top: 13px" class="col-xs-12">
+                                                                            <label for="exampleInputEmail1">Đường dẫn ảnh</label>
+                                                                            <input type="text" name="uImage" class="form-control" />
+                                                                        </div>
+                                                                        <div style="margin-top: 13px" class="col-xs-12">
+                                                                            <label for="exampleInputEmail1">Đường dẫn file .apk / Url web(Web traffic)</label>
+                                                                            <input type="text" name="uLink" class="form-control" />
+                                                                        </div>
+                                                                        <div style="margin-top: 13px" class="col-xs-12">
+                                                                            <label for="exampleInputEmail1">Package name (Tên package file apk)</label>
+                                                                            <input type="text" name="uPackage" class="form-control" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>/left
+                                                                right
+                                                                <div style="float:right" class="col-md-6">
+                                                                    <div class="col-md-12">
+                                                                        <label>Nội dung</label>
+                                                                        <textarea name="uContent" class="form-control" name="editor1" rows="15"></textarea>
+                                                                        <textarea name="uContent" class="form-control" rows="15"></textarea>
+                                                                    </div>
+                                                                </div>/right
+                                                            </div>
+                                                            <div style="margin-top:13px; margin-right:1px" class="row">
+                                                                <div style="margin-left:15px" class="col-md-12">
+                                                                    <div class="col-xs-4">
+                                                                        <label for="exampleInputEmail1">Giá một lần hiển thị (đ)</label>
+                                                                        <input type="number" name="uPdis" class="form-control" />
+                                                                    </div>
+                                                                    <div class="col-xs-4">
+                                                                        <label for="exampleInputEmail1">Giá một lần click (đ)</label>
+                                                                        <input type="number" name="uPclick" class="form-control" />
+                                                                    </div>
+                                                                    <div class="col-xs-4">
+                                                                        <label for="exampleInputEmail1">Giá một lần cài đặt (đ)</label>
+                                                                        <input type="number" name="uPins" class="form-control" />
+                                                                    </div>
+                    
+                                                                    <div style="margin-left:-20px" class="checkbox col-md-12">
+                                                                        <label>
+                                                                            <input name="uShowPopup" type="checkbox"/>
+                                                                            Show popup
+                                                                        </label>
+                                                                    </div>
+                    
+                                                                    <div style="margin-left:-20px" class="checkbox col-md-12">
+                                                                        <label>
+                                                                            <input name="uStatus" type="checkbox"/>
+                                                                            Kích hoạt
+                                                                        </label>
+                                                                    </div>
+                    
+                                                                </div>
+                                                            </div>
+                                                        </div> /.box-body 
+                                                        <div class="box-footer">
+                                                            <button type="submit" name="submitInsert" class="btn btn-primary">Thêm Tin Nhắn</button>
+                                                        </div>
+                                                    </form>
+                                                </div> /.box 
+                                            </div>/.col (left) 
+                                        </div>    /.row -->

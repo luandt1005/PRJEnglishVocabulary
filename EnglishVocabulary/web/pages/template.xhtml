@@ -30,7 +30,8 @@
             <!--HEADER-->
             <header class="main-header"> 
                 <!-- Logo --> 
-                <a href="#" class="logo">English Vocabulary</a> 
+                <!--<a href="#" class="logo">English Vocabulary</a>--> 
+                <a class="logo">English <small>Vocabulary</small> </a>
                 <!-- Header Navbar: style can be found in header.less -->
                 <nav class="navbar navbar-static-top" role="navigation"> 
                     <!-- Sidebar toggle button--> 
@@ -87,25 +88,21 @@
                     <ul class="sidebar-menu">
                         <li class="header">Menu</li>
                         <li><a href="index.xhtml"><i class="fa fa-home"></i> Trang chủ</a></li>
-                        <!--                        <li class="treeview"> <a href="#"> <i class="fa fa-comments"></i> <span>Quản lý tin nhắn</span> <i class="fa fa-angle-left pull-right"></i> </a>
-                                                    <ul class="treeview-menu">
-                                                        <li><a href=""><i class="fa fa-circle-o"></i> Tạo mới</a></li>
-                                                        <li><a href=""><i class="fa fa-circle-o"></i> Tin đã gửi</a></li>
-                                                    </ul>
-                                                </li>-->
-                        <li><a href="page1.xhtml"><i class="fa fa-briefcase"></i> page1.xhtml</a></li>
-                        <li><a href=""><i class="fa fa-users"></i> Người quản trị</a></li>
-                        <li><a href=""><i class="fa fa-bars"></i> Danh mục ứng dụng</a></li>
-                        <li><a href=""><i class="fa fa-university"></i> Danh sách ngân hàng</a></li>
-                        <li><a href=""><i class="fa fa-bars"></i> Quản lý API</a></li>
-                        <li><a href=""><i class="fa fa-envelope"></i> Hộp thư</a></li>
+                        <li><a href="administrator.xhtml"><i class="fa fa-users"></i> Quản trị viên</a></li>
+                        <li><a href="feedback.xhtml"><i class="fa fa-comment"></i> Phản hồi người dùng</a></li>
+                        <li class="treeview"> <a href="#"> <i class="fa fa-envelope"></i> <span>Quản lý tin nhắn</span> <i class="fa fa-angle-left pull-right"></i> </a>
+                            <ul class="treeview-menu">
+                                <li><a href="new_message.xhtml"><i class="fa fa-paper-plane"></i> Tạo mới</a></li>
+                                <li><a href="sended_message.xhtml"><i class="fa fa-list"></i> Tin đã gửi</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
             </aside>
 
             <!--CONTENT-->
-            <div class="content-wrapper">
+            <div class="content-wrapper" style="background-color: #ffffff;">
                 <ui:insert name="content">
 
                 </ui:insert>
@@ -114,7 +111,7 @@
             <!--FOOTER-->
             <footer class="main-footer">
                 <div class="pull-right hidden-xs"> <b>Version</b> 1.0 </div>
-                <strong>Copyright &copy; 2014-2015 <a target="_blank" href="http://mobile.vareco.vn/VarecoMobile/AdminSDK/">Vareco Mobile</a>.</strong> All rights reserved.
+                <strong>Copyright &copy; 2015 <a target="_blank">English vocabulary</a>.</strong> All rights reserved.
             </footer>
         </div>
         <!--END WRAPPER-->
