@@ -53,14 +53,13 @@ public class UsersModels {
         PreparedStatement ps = null;
         Connection c = null;
         try {
-            String sql = "INSERT INTO users VALUES (?, ?, ?);";
+            String sql = "INSERT INTO users VALUES (?, ?, " + u.getFullname() + ");";
             c = DbPool.getConnection();
             ps = c.prepareStatement(sql);
 
             ps.setString(1, u.getUsername());
             ps.setString(2, u.getPassword());
-            ps.setString(3, u.getFullname());
-
+//            ps.setString(3, u.getFullname());
             ps.executeUpdate();
             result = true;
         } catch (Exception e) {
