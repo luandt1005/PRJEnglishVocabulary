@@ -19,25 +19,28 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean
 @ViewScoped
-public class FeedbackBean extends MessageUtil{
+public class FeedbackBean extends MessageUtil {
 
+    private boolean visible;
     private Feedback feedback;
     private FeedbackModels models;
     private ArrayList<Feedback> data, dataSelected;
     private int sizeDataSelected;
     private boolean disableBtnDelete = true;
 
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
     public ArrayList<Feedback> getDataSelected() {
         return dataSelected;
     }
 
     public void setDataSelected(ArrayList<Feedback> dataSelected) {
-        this.sizeDataSelected = dataSelected.size();
-        if(dataSelected.size() > 0){
-            disableBtnDelete = false;
-        } else {
-            disableBtnDelete = true;
-        }
         this.dataSelected = dataSelected;
     }
 
@@ -81,14 +84,77 @@ public class FeedbackBean extends MessageUtil{
 
     private void getAllData() {
         data = models.getAllFeedback();
+        if (data.isEmpty()) {
+            visible = true;
+        } else {
+            visible = false;
+        }
     }
-    
+
     //select checkbox row table
     public void onRowCheckboxSelect(SelectEvent event) {
-        sizeDataSelected = dataSelected.size();
         feedback = (Feedback) event.getObject();
-        System.out.println("feedback.getId(): " + feedback.getId());
-        System.out.println("dataSelected.size():" + dataSelected.size());
+        if (feedback.isCheck()) {
+            feedback.setCheck(false);
+        } else {
+            feedback.setCheck(true);
+        }
+
+        int chon = 0;
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).isCheck()) {
+                chon++;
+            }
+        }
+        if (chon > 0) {
+            disableBtnDelete = false;
+        } else {
+            disableBtnDelete = true;
+        }
+        sizeDataSelected = chon;
     }
-    
+
+    public void selectCheckbox() {
+        int chon = 0;
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).isCheck()) {
+                chon++;
+            }
+        }
+        if (chon > 0) {
+            disableBtnDelete = false;
+        } else {
+            disableBtnDelete = true;
+        }
+        sizeDataSelected = chon;
+    }
+
+    //delete
+    public void delete() {
+        String id = "";
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).isCheck()) {
+                id += data.get(i).getId() + ",";
+            }
+        }
+        boolean deleted = models.delete(id);
+        if (deleted) {
+            for (int i = 0; i < data.size(); i++) {
+                if (data.get(i).isCheck()) {
+                    data.remove(i);
+                    i--;
+                }
+            }
+            if (data.isEmpty()) {
+                visible = true;
+            } else {
+                visible = false;
+            }
+            
+            addSuccessMsg("Xóa thành công");
+            disableBtnDelete = true;
+        } else {
+            addErrorMsg("Lỗi!");
+        }
+    }
 }

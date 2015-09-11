@@ -23,7 +23,7 @@ public class DbPool {
     private static Log log = new Log("DbPool");
     private static LinkedList pool = new LinkedList();
     public final static int MAX_CONNECTIONS = 20;
-    public final static int INIT_CONNECTIONS = 10;
+    public final static int INIT_CONNECTIONS = 5;
 
     public DbPool() {
         build(INIT_CONNECTIONS);

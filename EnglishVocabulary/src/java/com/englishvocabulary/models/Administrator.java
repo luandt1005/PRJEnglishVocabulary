@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author LuanDT
  */
 public class Administrator implements Serializable {
-    private int id;
+    private long id;
     private String username;
     private String fullname;
     private String password;
@@ -21,11 +21,22 @@ public class Administrator implements Serializable {
     private int status;
     private boolean remember;
 
-    public int getId() {
+    public Administrator() {
+    }
+
+    public Administrator(long id, String username, String fullname, int access, int status) {
+        this.id = id;
+        this.username = username;
+        this.fullname = fullname;
+        this.access = access;
+        this.status = status;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

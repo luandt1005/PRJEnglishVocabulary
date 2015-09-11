@@ -14,6 +14,7 @@ import java.io.Serializable;
 public class Feedback implements Serializable{
     private long id;
     private String content;
+    private boolean check;
 
     public Feedback() {
     }
@@ -21,6 +22,14 @@ public class Feedback implements Serializable{
     public Feedback(long id, String content) {
         this.id = id;
         this.content = content;
+    }
+
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
     }
 
     public long getId() {

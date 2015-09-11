@@ -9,25 +9,28 @@ package com.wsenglishvocabulary.models;
  *
  * @author LuanDT
  */
-public class ResultLogin {
-
-    private boolean check;
-    private long user_id;
+public class Administrator {
+    
+    private long id;
+    private String username;
+    private String password;
     private String fullname;
     private int access;
     private int status;
 
-    public ResultLogin(boolean check, long user_id, String fullname) {
-        this.check = check;
-        this.user_id = user_id;
-        this.fullname = fullname;
+    public Administrator() {
     }
 
-    public ResultLogin(boolean check, long user_id, String fullname, int access) {
-        this.check = check;
-        this.user_id = user_id;
-        this.fullname = fullname;
-        this.access = access;
+    public Administrator(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getAccess() {
@@ -46,20 +49,20 @@ public class ResultLogin {
         this.status = status;
     }
 
-    public boolean isCheck() {
-        return check;
+    public String getUsername() {
+        return username;
     }
 
-    public void setCheck(boolean check) {
-        this.check = check;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public long getUser_id() {
-        return user_id;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFullname() {
@@ -69,5 +72,5 @@ public class ResultLogin {
     public void setFullname(String fullname) {
         this.fullname = fullname;
     }
-
+    
 }

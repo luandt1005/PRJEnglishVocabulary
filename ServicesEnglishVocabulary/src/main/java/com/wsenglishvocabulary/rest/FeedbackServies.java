@@ -38,7 +38,9 @@ public class FeedbackServies {
     }
 
     /**
-     * Retrieves representation of an instance of com.wsenglishvocabulary.rest.FeedbackServies
+     * Retrieves representation of an instance of
+     * com.wsenglishvocabulary.rest.FeedbackServies
+     *
      * @return an instance of org.json.JSONObject
      */
     @GET
@@ -77,7 +79,7 @@ public class FeedbackServies {
 
         return json;
     }
-    
+
     @POST
     @Path("/delete")
     public JSONObject delete(@FormParam("id") long id) {
@@ -97,7 +99,7 @@ public class FeedbackServies {
 
         return json;
     }
-    
+
     @POST
     @Path("/deletelist")
     public JSONObject deletelist(@FormParam("id") String id) {
@@ -106,7 +108,9 @@ public class FeedbackServies {
         String[] listId = id.split(",");
         ArrayList<Feedback> arr = new ArrayList<Feedback>();
         for (int i = 0; i < listId.length; i++) {
-            arr.add(new Feedback(Long.parseLong(listId[i])));
+            if (listId[i] != "") {
+                arr.add(new Feedback(Long.parseLong(listId[i])));
+            }
         }
         try {
             boolean deleted = models.deleteList(arr);

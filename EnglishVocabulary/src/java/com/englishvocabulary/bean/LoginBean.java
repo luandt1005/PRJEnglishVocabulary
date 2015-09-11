@@ -6,6 +6,8 @@
 package com.englishvocabulary.bean;
 
 import com.englishvocabulary.models.Administrator;
+import com.englishvocabulary.models.AdministratorModels;
+import com.englishvocabulary.models.ResultLogin;
 import com.englishvocabulary.utils.MessageUtil;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -24,12 +26,14 @@ import javax.servlet.http.HttpSession;
 public class LoginBean extends MessageUtil{
 
     private Administrator a;
+    private AdministratorModels models;
             
     /**
      * Creates a new instance of LoginBean
      */
     public LoginBean() {
         a = new Administrator();
+        models = new AdministratorModels();
     }
 
     public Administrator getA() {
@@ -43,12 +47,12 @@ public class LoginBean extends MessageUtil{
     public String checkUser() throws Exception {
         if (validateData()) {
             HttpSession session = SessionBean.session(true);
-            session.setAttribute("username", a.getUsername());
+            session.setAttribute("username", a.getFullname());
 
             //cookie
             if (a.isRemember()) {
                 HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-                Cookie user = new Cookie("username", a.getUsername());
+                Cookie user = new Cookie("username", a.getFullname());
                 System.out.println(">>>>>>>>addCookie");
                 user.setMaxAge(60 * 60 * 48);
                 user.setPath("/");
@@ -63,9 +67,9 @@ public class LoginBean extends MessageUtil{
     }
 
     public boolean validateData() throws Exception {
-//        boolean check = true;
-        if (a.getUsername().equals("luandt")) {
-            a.setFullname("DinhTheLuan");
+        ResultLogin login = models.login(a);
+        if (login.isCheck()) {
+            a.setFullname(login.getFullname());
             return true;
         } else {
             addErrorMsg("Sai tài khoản hoặc mật khẩu");

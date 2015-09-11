@@ -41,6 +41,20 @@ public class Result {
         }
         return object;
     }
+    
+    public static JSONObject successLoginAdmin(long id, String fullname, int access) {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("success", 1);
+            object.put("error", 0);
+            object.put("user_id", id);
+            object.put("fullname", fullname);
+            object.put("access", access);
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+        return object;
+    }
 
     //error
     public static JSONObject error() {
@@ -78,6 +92,33 @@ public class Result {
                 row.put("id", arr.get(i).getUser_id());
                 row.put("username", arr.get(i).getUsername());
                 row.put("fullname", arr.get(i).getFullname());
+                jsonArray.put(row);
+            }
+            object.put("success", 1);
+            object.put("error", 0);
+            object.put("total", arr.size());
+            object.put("row", jsonArray);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return object;
+    }
+    
+    //success Administrator
+    public static JSONObject successAdmin(ArrayList<Administrator> arr) {
+        JSONObject object = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        JSONObject row;
+        try {
+            for (int i = 0; i < arr.size(); i++) {
+                row = new JSONObject();
+                row.put("id", arr.get(i).getId());
+                row.put("username", arr.get(i).getUsername());
+                row.put("fullname", arr.get(i).getFullname());
+                row.put("access", arr.get(i).getAccess());
+                row.put("status", arr.get(i).getStatus());
                 jsonArray.put(row);
             }
             object.put("success", 1);

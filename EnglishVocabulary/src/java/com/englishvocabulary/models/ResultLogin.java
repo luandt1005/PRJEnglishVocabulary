@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.wsenglishvocabulary.models;
+package com.englishvocabulary.models;
 
 /**
  *
@@ -16,12 +16,6 @@ public class ResultLogin {
     private String fullname;
     private int access;
     private int status;
-
-    public ResultLogin(boolean check, long user_id, String fullname) {
-        this.check = check;
-        this.user_id = user_id;
-        this.fullname = fullname;
-    }
 
     public ResultLogin(boolean check, long user_id, String fullname, int access) {
         this.check = check;
