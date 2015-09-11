@@ -82,6 +82,38 @@ public class AdministratorModels {
         }
         return new ResultLogin(check, id, fullname, access);
     }
+    
+    //info admin
+    public ResultLogin infoAdmin(String username) {
+        boolean check = false;
+        long id = -1;
+        String fullname = "";
+        int access = -1;
+        int status = -1;
+        Client client = new Client();
+        Form form = new Form();
+        form.add("username", username);
+        WebResource webResource = client.resource("http://localhost:8080/ServicesEnglishVocabulary/rest/administrator/info");
+        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, form);
+        if (response.getStatus() != 200) {
+            System.out.println("Connect fail: " + response.getStatus());
+        } else {
+            try {
+                String output = response.getEntity(String.class);
+                JSONObject object = new JSONObject(output);
+                if (object.getInt("success") == 1) {
+                    check = true;
+                    id = object.getLong("user_id");
+                    fullname = object.getString("fullname");
+                    access = object.getInt("access");
+                    status = object.getInt("status");
+                }
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return new ResultLogin(id, fullname, access, status);
+    }
 
     //delete
     public boolean delete(String id) {

@@ -5,9 +5,11 @@
  */
 package com.englishvocabulary.bean;
 
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -16,12 +18,23 @@ import javax.servlet.http.HttpSession;
  */
 @ManagedBean
 @SessionScoped
-public class SessionBean {
+public class SessionBean  implements Serializable {
 
+    private String server;
     /**
      * Creates a new instance of SessionBean
      */
     public SessionBean() {
+        HttpServletRequest servlet = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        server = "http://" + servlet.getServerName() + ":" + servlet.getServerPort() + servlet.getContextPath() + servlet.getServletPath();
+    }
+
+    public String getServer() {
+        return server;
+    }
+
+    public void setServer(String server) {
+        this.server = server;
     }
     
     public static HttpSession session(boolean value){
@@ -34,4 +47,5 @@ public class SessionBean {
         String username = (String) session.getAttribute("username");
         return username;
     }
+    
 }

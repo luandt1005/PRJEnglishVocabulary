@@ -39,11 +39,11 @@
                     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"> <span class="sr-only">Toggle navigation</span> </a>
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
-                            <li class="dropdown user user-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="/EnglishVocabulary/dist/img/default_user_icon.png" class="user-image" alt="User Image"/> <h:outputText class="hidden-xs" value="#{sessionBean.username()}" /> </a>
+                            <li class="dropdown user user-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="/EnglishVocabulary/dist/img/default_user_icon.png" class="user-image" alt="User Image"/> <h:outputText class="hidden-xs" value="#{inforAdminBean.fullname()}" /> </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
                                     <li class="user-header"> <img src="/EnglishVocabulary/dist/img/default_user_icon.png" class="img-circle" alt="User Image" />
-                                        <p><h:outputText value="#{sessionBean.username()}" /></p>
+                                        <p><h:outputText value="#{inforAdminBean.fullname()}" /></p>
                                     </li>
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
@@ -62,7 +62,7 @@
             <!--dialog info detail-->
             <p:dialog widgetVar="info" modal="true" header="Thông tin tài khoản" resizable="false">
                 <p:outputPanel id="detailInfo" style="text-align:center;">
-                    <h:outputText value="Thong Tin Tai Khoan" />
+                    <h:outputText value="#{inforAdminBean.fullname()} #{inforAdminBean.access()} #{inforAdminBean.status()}" />
                 </p:outputPanel>
             </p:dialog>
 
@@ -73,7 +73,7 @@
                     <div class="user-panel">
                         <div class="pull-left image"> <img src="/EnglishVocabulary/dist/img/default_user_icon.png" class="img-circle" alt="User Image" /> </div>
                         <div class="pull-left info">
-                            <p><h:outputText value="#{sessionBean.username()}" /></p>
+                            <p><h:outputText value="#{inforAdminBean.fullname()}" /></p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a> </div>
                     </div>
                     <!-- search form -->
@@ -88,13 +88,13 @@
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="header">Menu</li>
-                        <li><a href="index.xhtml"><i class="fa fa-home"></i> Trang chủ</a></li>
-                        <li><a href="administrator.xhtml"><i class="fa fa-users"></i> Quản trị viên</a></li>
-                        <li><a href="feedback.xhtml"><i class="fa fa-comment"></i> Phản hồi người dùng</a></li>
+                        <li><a href="#{sessionBean.server}/pages/index.xhtml"><i class="fa fa-home"></i> Trang chủ</a></li>
+                        <li><a href="#{sessionBean.server}/pages/administrator.xhtml"><i class="fa fa-users"></i> Quản trị viên</a></li>
+                        <li><a href="#{sessionBean.server}/pages/feedback.xhtml"><i class="fa fa-comment"></i> Phản hồi người dùng</a></li>
                         <li class="treeview"> <a href="#"> <i class="fa fa-envelope"></i> <span>Quản lý tin nhắn</span> <i class="fa fa-angle-left pull-right"></i> </a>
                             <ul class="treeview-menu">
-                                <li><a href="new_message.xhtml"><i class="fa fa-paper-plane"></i> Tạo mới</a></li>
-                                <li><a href="sended_message.xhtml"><i class="fa fa-list"></i> Tin đã gửi</a></li>
+                                <li><a href="#{sessionBean.server}/pages/new_message.xhtml"><i class="fa fa-paper-plane"></i> Tạo mới</a></li>
+                                <li><a href="#{sessionBean.server}/pages/sended_message.xhtml"><i class="fa fa-list"></i> Tin đã gửi</a></li>
                             </ul>
                         </li>
                     </ul>

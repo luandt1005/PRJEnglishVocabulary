@@ -58,6 +58,10 @@ public class AdministratorWS {
         return resource.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
+    public <T> T info(Class<T> responseType) throws UniformInterfaceException {
+        return webResource.path("info").post(responseType);
+    }
+
     public void close() {
         client.destroy();
     }

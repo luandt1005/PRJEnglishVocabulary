@@ -8,6 +8,7 @@ package com.englishvocabulary.bean;
 import com.englishvocabulary.models.Feedback;
 import com.englishvocabulary.models.FeedbackModels;
 import com.englishvocabulary.utils.MessageUtil;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -19,7 +20,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean
 @ViewScoped
-public class FeedbackBean extends MessageUtil {
+public class FeedbackBean extends MessageUtil implements Serializable{
 
     private boolean visible;
     private Feedback feedback;

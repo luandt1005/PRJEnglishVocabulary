@@ -55,6 +55,21 @@ public class Result {
         }
         return object;
     }
+    
+    public static JSONObject successInfoAdmin(long id, String fullname, int access, int status) {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("success", 1);
+            object.put("error", 0);
+            object.put("user_id", id);
+            object.put("fullname", fullname);
+            object.put("access", access);
+            object.put("status", status);
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+        return object;
+    }
 
     //error
     public static JSONObject error() {

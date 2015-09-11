@@ -103,6 +103,35 @@ public class AdministratorModels {
         }
         return new ResultLogin(check, id, fullname, access);
     }
+    
+    //get infor Admin by username
+    public ResultLogin infoAdmin(String username) throws Exception {
+        long id = -1;
+        int access = -1;
+        int status = -1;
+        String fullname = "";
+        Statement statement = null;
+        ResultSet resultSet = null;
+        Connection connection = null;
+        try {
+            String sql = "SELECT * FROM administrator WHERE username = " + "'" + username + "';";
+            connection = DbPool.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                id = resultSet.getLong(1);
+                fullname = resultSet.getString(4);
+                access = resultSet.getInt(5);
+                status = resultSet.getInt(6);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            DbPool.releaseConnection(connection, statement, resultSet);
+        }
+        return new ResultLogin(id, fullname, access, status);
+    }
 
     //check exist username
     public boolean checkUsername(String username) throws Exception {

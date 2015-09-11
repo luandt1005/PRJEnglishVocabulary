@@ -9,6 +9,7 @@ import com.englishvocabulary.models.Administrator;
 import com.englishvocabulary.models.AdministratorModels;
 import com.englishvocabulary.models.ResultLogin;
 import com.englishvocabulary.utils.MessageUtil;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpSession;
  */
 @ManagedBean
 @RequestScoped
-public class LoginBean extends MessageUtil{
+public class LoginBean extends MessageUtil implements Serializable {
 
     private Administrator a;
     private AdministratorModels models;
@@ -47,17 +48,18 @@ public class LoginBean extends MessageUtil{
     public String checkUser() throws Exception {
         if (validateData()) {
             HttpSession session = SessionBean.session(true);
-            session.setAttribute("username", a.getFullname());
+            session.setAttribute("username", a.getUsername());
 
             //cookie
             if (a.isRemember()) {
                 HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-                Cookie user = new Cookie("username", a.getFullname());
+                Cookie username = new Cookie("username", a.getUsername());
                 System.out.println(">>>>>>>>addCookie");
-                user.setMaxAge(60 * 60 * 48);
-                user.setPath("/");
-                user.setHttpOnly(true);
-                response.addCookie(user);
+                username.setMaxAge(60 * 60 * 48);
+                username.setPath("/");
+                username.setHttpOnly(true);
+                response.addCookie(username);
+                
             }
 
             return "pages/index?faces-redirect=true";
@@ -69,7 +71,6 @@ public class LoginBean extends MessageUtil{
     public boolean validateData() throws Exception {
         ResultLogin login = models.login(a);
         if (login.isCheck()) {
-            a.setFullname(login.getFullname());
             return true;
         } else {
             addErrorMsg("Sai tài khoản hoặc mật khẩu");

@@ -30,6 +30,13 @@ public class ResultLogin {
         this.access = access;
     }
 
+    public ResultLogin(long user_id, String fullname, int access, int status) {
+        this.user_id = user_id;
+        this.fullname = fullname;
+        this.access = access;
+        this.status = status;
+    }
+
     public int getAccess() {
         return access;
     }

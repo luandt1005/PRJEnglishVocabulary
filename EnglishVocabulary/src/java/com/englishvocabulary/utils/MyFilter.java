@@ -5,6 +5,10 @@
  */
 package com.englishvocabulary.utils;
 
+import com.englishvocabulary.bean.InforAdminBean;
+import com.englishvocabulary.bean.SessionBean;
+import com.englishvocabulary.models.AdministratorModels;
+import com.englishvocabulary.models.ResultLogin;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -34,12 +38,14 @@ public class MyFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         String username;
         username = (String) req.getSession().getAttribute("username");
+        boolean check = false;
 
         //cookie
         Cookie[] cookies = req.getCookies();
         for (int i = 0; i < cookies.length; i++) {
             if (cookies[i].getName().equals("username")) {
                 username = cookies[i].getValue();
+                check = true;
                 System.out.println("Cookie--MyFilter: " + cookies[i].getName() + "--" + username);
             }
         }
@@ -47,7 +53,18 @@ public class MyFilter implements Filter {
         if (username != null) {
             HttpSession session = req.getSession(true);
             session.setAttribute("username", username);
-            chain.doFilter(req, res);
+            if (check) {
+                System.out.println("------------>>>goi info");
+                AdministratorModels models = new AdministratorModels();
+                ResultLogin info = models.infoAdmin(username);
+                if(info.getStatus() == 0) {
+                    res.sendRedirect(req.getContextPath() + "/faces/login.xhtml");
+                } else {
+                    chain.doFilter(req, res);
+                }
+            } else {
+                chain.doFilter(req, res);
+            }
         } else {
             res.sendRedirect(req.getContextPath() + "/faces/login.xhtml");
         }

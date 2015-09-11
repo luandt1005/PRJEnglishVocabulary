@@ -41,7 +41,9 @@ public class AdministratorServices {
     }
 
     /**
-     * Retrieves representation of an instance of com.wsenglishvocabulary.rest.AdministratorServices
+     * Retrieves representation of an instance of
+     * com.wsenglishvocabulary.rest.AdministratorServices
+     *
      * @return an instance of org.codehaus.jettison.json.JSONObject
      */
     @GET
@@ -96,7 +98,7 @@ public class AdministratorServices {
     @Path("/login")
     public JSONObject login(@FormParam("username") String username, @FormParam("password") String password) {
         JSONObject json = new JSONObject();
-        Administrator a  = new Administrator();
+        Administrator a = new Administrator();
         a.setUsername(username);
         a.setPassword(Utils.generateMD5(password));
 
@@ -115,7 +117,24 @@ public class AdministratorServices {
 
         return json;
     }
-    
+
+    @POST
+    @Path("/info")
+    public JSONObject info(@FormParam("username") String username) {
+        JSONObject json = new JSONObject();
+
+        try {
+            ResultLogin login = models.infoAdmin(username);
+            json = Result.successInfoAdmin(login.getUser_id(), login.getFullname(), login.getAccess(), login.getStatus());
+//            DbPool dbPool = new DbPool();
+        } catch (Exception e) {
+            json = Result.error();
+            e.printStackTrace();
+        }
+
+        return json;
+    }
+
     @POST
     @Path("/delete")
     public JSONObject delete(@FormParam("id") String id) {
@@ -139,7 +158,7 @@ public class AdministratorServices {
 
         return json;
     }
-    
+
     @POST
     @Path("/updateStatus")
     public JSONObject updateStatus(@FormParam("id") String id, @FormParam("status") String status) {
