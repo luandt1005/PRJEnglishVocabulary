@@ -20,50 +20,88 @@
                         </ol>
                     </section>
                     <section class="content">
-                        <p:dataTable var="f"
+                        <p:dataTable var="a"
                                      id="table"
-                                     value="#{feedbackBean.data}"
-                                     rowKey="#{f.id}"
+                                     value="#{administratorBean.data}"
+                                     rowKey="#{a.id}"
                                      rowIndexVar="rowIndex"
                                      emptyMessage="Không có dữ liệu."
-                                     selection="#{feedbackBean.dataSelected}"
+                                     selection="#{administratorBean.dataSelected}"
                                      rows="10"
                                      paginator="true"
                                      paginatorPosition="bottom"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="10,15,20">
                             <f:facet name="header">
-                                <p:outputPanel autoUpdate="true" id="action">
-                                    <p:commandButton icon="fa fa-remove" value="Xóa" disabled="#{feedbackBean.disableBtnDelete}" style="float: left" oncomplete="PF('deleteMultiItem').show();" />
+                                <p:outputPanel>
                                     <p:commandButton icon="fa fa-refresh" value="Làm mới" style="float: left" onclick="window.location.replace(window.location.href)" />
                                 </p:outputPanel >
                             </f:facet>
-                            <p:ajax event="rowSelectCheckbox" listener="#{feedbackBean.onRowCheckboxSelect}" update="main"/>
-                            <p:ajax event="rowSelect" listener="#{feedbackBean.onRowCheckboxSelect}" update="main"/>
                             <p:column headerText="STT" style="width: 50px; text-align: center;" >
                                 <h:outputText value="#{rowIndex + 1}" />
                             </p:column>
 
-                            <p:column headerText="Nội dung" >
-                                <h:outputText value="#{f.content}" />
+                            <p:column headerText="Họ tên" >
+                                <h:outputText value="#{a.fullname}" />
                             </p:column>
 
-                            <p:column selectionMode="multiple" visible="#{feedbackBean.visible}" style="width: 35px; text-align: center;" />
-                            <p:column style="width: 40px; text-align: center;" headerText="Xóa">
-                                <p:selectBooleanCheckbox style="margin: 0 auto"  value="#{f.check}" >
-                                    <p:ajax listener="#{feedbackBean.selectCheckbox}" update="main" />
-                                </p:selectBooleanCheckbox>
+                            <p:column headerText="Tên đăng nhập" >
+                                <h:outputText value="#{a.username}" />
                             </p:column>
+
+                            <p:column headerText="Quyền xử lý" style="text-align: center;" >
+                                <h:outputText value="#{a.quyen}" />
+                                <p:commandButton style="margin-left: 10px;" disabled="#{administratorBean.isStatusBtnDelete(a)}" action="#{administratorBean.setSelectedAdmin(a)}" icon="fa fa-pencil-square-o" update="main" oncomplete="PF('updateAccess').show();" />
+                            </p:column>
+
+                            <p:column headerText="Trạng thái" style="text-align: center;" >
+                                <h:outputText value="#{a.trangthai}" />
+                                <p:commandButton style="margin-left: 10px;" disabled="#{administratorBean.isStatusBtnDelete(a)}" action="#{administratorBean.setSelectedAdmin(a)}" icon="fa fa-pencil-square-o" update="main" oncomplete="PF('updateStatus').show();" />
+                            </p:column>
+
+                            <p:column headerText="Xóa" style="width: 80px; text-align: center;">
+                                <p:commandButton style="margin-left: 5px;" disabled="#{administratorBean.isStatusBtnDelete(a)}" action="#{administratorBean.setSelectedAdmin(a)}" icon="fa fa-trash-o" update="main" oncomplete="PF('deleteOneItem').show();" />
+                            </p:column>
+
                         </p:dataTable>  
-                        <p:dialog widgetVar="deleteMultiItem" closable="false" modal="true" header="Xác nhận xóa" resizable="false">
+                        
+                        <!--delete-->
+                        <p:dialog widgetVar="deleteOneItem" closable="false" modal="true" header="Xác nhận xóa" resizable="false">
                             <p:outputPanel style="text-align:center; margin-top: 20px;">
-                                <h:outputText style="font-size: 14px;" id="sizedelete" value="Bạn có thật sự muốn xóa (#{feedbackBean.sizeDataSelected}) bản ghi đã chọn?" />
+                                <h:outputText style="font-size: 14px;" id="sizedelete" value="Bạn có thật sự muốn xóa quản trị viên: #{administratorBean.selectedAdmin.fullname} ?" />
                             </p:outputPanel>
                             <p:outputPanel style="text-align:center;">
-                                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 20px;" oncomplete="PF('deleteMultiItem').hide();" />
-                                <p:commandButton value="Xóa" icon="ui-icon-check" style="margin-top: 20px; margin-left: 10px;" actionListener="#{feedbackBean.delete}" update="main" oncomplete="PF('deleteMultiItem').hide();" />
+                                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 20px;" oncomplete="PF('deleteOneItem').hide();" />
+                                <p:commandButton value="Xóa" icon="ui-icon-check" actionListener="#{administratorBean.delete}" style="margin-top: 20px; margin-left: 5px;" update="main" oncomplete="PF('deleteOneItem').hide();" />
                             </p:outputPanel>
                         </p:dialog>
+
+                        <!--updateStatus-->
+                        <p:dialog header="Trạng thái" resizable="false" closable="false" widgetVar="updateStatus" modal="true">
+                            <p:outputPanel style="text-align:center; margin-top: 10px;">
+                                <h:panelGrid columns="1" cellpadding="5">
+                                    <p:outputLabel value="Đổi trạng thái sang: #{administratorBean.trangThaiThayDoi(administratorBean.selectedAdmin.status)}" />
+                                </h:panelGrid>
+                            </p:outputPanel>
+                            <p:outputPanel style="text-align:center;">
+                                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 20px;" oncomplete="PF('updateStatus').hide();"/>
+                                <p:commandButton value="Xác nhận" icon="ui-icon-check" actionListener="#{administratorBean.updateStatus}" style="margin-top: 20px; margin-left: 5px;" update="main" oncomplete="PF('updateStatus').hide();"/>
+                            </p:outputPanel>
+                        </p:dialog>
+                        
+                        <!--updateAccess-->
+                        <p:dialog header="Quyền xử lý" resizable="false" closable="false" widgetVar="updateAccess" modal="true">
+                            <p:outputPanel style="text-align:center; margin-top: 10px;">
+                                <h:panelGrid columns="1" cellpadding="5">
+                                    <p:outputLabel value="Đổi quyền xử lý sang: #{administratorBean.quyenThayDoi(administratorBean.selectedAdmin.access)}" />
+                                </h:panelGrid>
+                            </p:outputPanel>
+                            <p:outputPanel style="text-align:center;">
+                                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 20px;" oncomplete="PF('updateAccess').hide();"/>
+                                <p:commandButton value="Xác nhận" icon="ui-icon-check" actionListener="#{administratorBean.changeAccess}" style="margin-top: 20px; margin-left: 5px;" update="main" oncomplete="PF('updateAccess').hide();"/>
+                            </p:outputPanel>
+                        </p:dialog>
+
                     </section>
                 </h:form>
             </ui:define>

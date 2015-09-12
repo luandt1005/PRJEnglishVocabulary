@@ -81,7 +81,7 @@ public class AdministratorServices {
                 if (inserted) {
                     json = Result.success();
                 } else {
-                    json = Result.error();
+                    json = Result.error("Lỗi");
                 }
             } else {
                 json = Result.error("Tên đăng nhập đã tồn tại bạn vui lòng chọn một tên đăng nhập khác.");
@@ -126,7 +126,6 @@ public class AdministratorServices {
         try {
             ResultLogin login = models.infoAdmin(username);
             json = Result.successInfoAdmin(login.getUser_id(), login.getFullname(), login.getAccess(), login.getStatus());
-//            DbPool dbPool = new DbPool();
         } catch (Exception e) {
             json = Result.error();
             e.printStackTrace();

@@ -9,6 +9,7 @@ import com.englishvocabulary.models.Administrator;
 import com.englishvocabulary.models.AdministratorModels;
 import com.englishvocabulary.models.ResultLogin;
 import com.englishvocabulary.utils.MessageUtil;
+import com.englishvocabulary.utils.ValidatorUtils;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -28,6 +29,7 @@ public class LoginBean extends MessageUtil implements Serializable {
 
     private Administrator a;
     private AdministratorModels models;
+    private String focus = "fullname";
             
     /**
      * Creates a new instance of LoginBean
@@ -35,6 +37,14 @@ public class LoginBean extends MessageUtil implements Serializable {
     public LoginBean() {
         a = new Administrator();
         models = new AdministratorModels();
+    }
+
+    public String getFocus() {
+        return focus;
+    }
+
+    public void setFocus(String focus) {
+        this.focus = focus;
     }
 
     public Administrator getA() {
@@ -73,7 +83,7 @@ public class LoginBean extends MessageUtil implements Serializable {
         if (login.isCheck()) {
             return true;
         } else {
-            addErrorMsg("Sai tài khoản hoặc mật khẩu");
+            addErrorMsg("Sai tài khoản hoặc mật khẩu hoặc tài khoản của bạn không được kích hoạt");
             return false;
         }
     }
@@ -95,5 +105,36 @@ public class LoginBean extends MessageUtil implements Serializable {
         }
 
         return "/faces/login?faces-redirect=true";
+    }
+    
+    public void register(){
+        if(validateRegister()){
+            ResultLogin result = models.registerAdmin(a);
+            if(result.isCheck()){
+                addSuccessMsg("Đăng ký thành công");
+                a.setFullname("");
+                a.setUsername("");
+                a.setPassword("");
+                a.setRePassword("");
+            } else {
+                addErrorMsg(result.getFullname());
+                focus = "username";
+            }
+        }
+    }
+    
+    public boolean validateRegister(){
+        if(!ValidatorUtils.isUsername(a.getUsername())){
+            addErrorMsg("Tên đăng nhập không được chứa ký tự đặc biệt.");
+            focus = "username";
+            return false;
+        }
+        if(!a.getPassword().equals(a.getRePassword())){
+            addErrorMsg("Hai mật khẩu bạn nhập không trùng khớp.");
+            focus = "password";
+            return false;
+        } else {
+            return true;
+        } 
     }
 }

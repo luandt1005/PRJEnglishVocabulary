@@ -20,6 +20,28 @@ public class Administrator implements Serializable {
     private int access;
     private int status;
     private boolean remember;
+    private String quyen = "";
+    private String trangthai = "";
+   
+    public String getTrangthai() {
+        if(status == 1){
+            trangthai = "Hoạt động";
+        } else {
+            trangthai = "Tạm dừng";
+        }
+        return trangthai;
+    }
+
+    public String getQuyen() {
+        if (access == 0) {
+            quyen = "Khách";
+        } else if (access == 1) {
+            quyen = "Quản trị";
+        } else {
+            quyen = "Administrator";
+        }
+        return quyen;
+    }
 
     public Administrator() {
     }

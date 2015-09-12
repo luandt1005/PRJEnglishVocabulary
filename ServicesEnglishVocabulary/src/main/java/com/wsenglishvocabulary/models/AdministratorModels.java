@@ -26,7 +26,7 @@ public class AdministratorModels {
         ResultSet resultSet = null;
         Connection c = null;
         try {
-            String sql = "SELECT * FROM administrator ORDER BY id DESC;";
+            String sql = "SELECT * FROM administrator;";
             c = DbPool.getConnection();
             statement = c.createStatement();
             resultSet = statement.executeQuery(sql);

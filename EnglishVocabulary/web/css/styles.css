@@ -15,7 +15,7 @@
 .ui-panel{
     border: none;
     /*border-radius: 0;*/
-    
+
 }
 .ui-widget-content .ui-panelgrid .ui-panelgrid-cell {
     border: none;
@@ -34,7 +34,7 @@
 
 .ui-widget{
     font-size: 13px;
-/*    font-style: italic;*/
+    /*    font-style: italic;*/
 }
 
 .ui-datatable-header {
@@ -63,7 +63,8 @@
 }
 
 .ui-state-default {
-    border-radius: 0;
+    /*border button*/
+    border-radius: 3px;
 }
 
 .ui-datatable-data, .ui-widget-content {
@@ -72,4 +73,8 @@
 
 td {
     text-align: justify;
+}
+
+.ui-chkbox, .ui-chkbox-box {
+    margin-top: 3px;
 }

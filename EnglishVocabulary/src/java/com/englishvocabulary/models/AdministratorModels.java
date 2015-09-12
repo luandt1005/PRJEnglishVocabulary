@@ -138,4 +138,85 @@ public class AdministratorModels {
         }
         return result;
     }
+    
+    //change status
+    public boolean updateStatus(long id, int status) {
+        boolean result = false;
+        Client client = new Client();
+        Form form = new Form();
+        form.add("id", id);
+        form.add("status", status);
+        WebResource webResource = client.resource("http://localhost:8080/ServicesEnglishVocabulary/rest/administrator/updateStatus");
+        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, form);
+        if (response.getStatus() != 200) {
+            System.out.println("Connect fail: " + response.getStatus());
+        } else {
+            try {
+                String output = response.getEntity(String.class);
+                JSONObject object = new JSONObject(output);
+                if (object.getInt("success") == 1) {
+                    result = true;
+                }
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
+    //change Access
+    public boolean changeAccess(long id, int access) {
+        boolean result = false;
+        Client client = new Client();
+        Form form = new Form();
+        form.add("id", id);
+        form.add("access", access);
+        WebResource webResource = client.resource("http://localhost:8080/ServicesEnglishVocabulary/rest/administrator/updateAccess");
+        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, form);
+        if (response.getStatus() != 200) {
+            System.out.println("Connect fail: " + response.getStatus());
+        } else {
+            try {
+                String output = response.getEntity(String.class);
+                JSONObject object = new JSONObject(output);
+                if (object.getInt("success") == 1) {
+                    result = true;
+                }
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
+    //add
+    public ResultLogin registerAdmin(Administrator a) {
+        boolean result = false;
+        String error_msg = "";
+        Client client = new Client();
+        Form form = new Form();
+        form.add("username", a.getUsername());
+        form.add("password", a.getPassword());
+        form.add("fullname", a.getFullname());
+        form.add("access", 0);
+        form.add("status", 0);
+        WebResource webResource = client.resource("http://localhost:8080/ServicesEnglishVocabulary/rest/administrator/add");
+        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, form);
+        if (response.getStatus() != 200) {
+            System.out.println("Connect fail: " + response.getStatus());
+        } else {
+            try {
+                String output = response.getEntity(String.class);
+                JSONObject object = new JSONObject(output);
+                if (object.getInt("success") == 1) {
+                    result = true;
+                } else {
+                    error_msg = object.getString("error_msg");
+                }
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return new ResultLogin(result, error_msg);
+    }
 }
