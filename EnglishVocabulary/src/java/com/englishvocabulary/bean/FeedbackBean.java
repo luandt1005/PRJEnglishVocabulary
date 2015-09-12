@@ -20,7 +20,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean
 @ViewScoped
-public class FeedbackBean extends MessageUtil implements Serializable{
+public class FeedbackBean extends MessageUtil implements Serializable {
 
     private boolean visible;
     private Feedback feedback;
@@ -132,30 +132,34 @@ public class FeedbackBean extends MessageUtil implements Serializable{
 
     //delete
     public void delete() {
-        String id = "";
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).isCheck()) {
-                id += data.get(i).getId() + ",";
-            }
-        }
-        boolean deleted = models.delete(id);
-        if (deleted) {
+        if (InforAdminBean.access() > 0) {
+            String id = "";
             for (int i = 0; i < data.size(); i++) {
                 if (data.get(i).isCheck()) {
-                    data.remove(i);
-                    i--;
+                    id += data.get(i).getId() + ",";
                 }
             }
-            if (data.isEmpty()) {
-                visible = true;
+            boolean deleted = models.delete(id);
+            if (deleted) {
+                for (int i = 0; i < data.size(); i++) {
+                    if (data.get(i).isCheck()) {
+                        data.remove(i);
+                        i--;
+                    }
+                }
+                if (data.isEmpty()) {
+                    visible = true;
+                } else {
+                    visible = false;
+                }
+
+                addSuccessMsg("Xóa thành công");
+                disableBtnDelete = true;
             } else {
-                visible = false;
+                addErrorMsg("Lỗi!");
             }
-            
-            addSuccessMsg("Xóa thành công");
-            disableBtnDelete = true;
         } else {
-            addErrorMsg("Lỗi!");
+            addErrorMsg("Bạn không có quyền xóa.");
         }
     }
 }

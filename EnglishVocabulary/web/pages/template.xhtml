@@ -4,7 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
     <h:head>
         <title>English Vocabulary</title>
@@ -49,7 +49,7 @@
                                     <li class="user-footer">
                                         <h:form>
                                             <div class="pull-left"> <p:commandButton class="btn btn-default btn-flat" value="Thông tin" oncomplete="PF('info').show();" /></div>
-                                            <div class="pull-right"> <h:commandLink class="btn btn-default btn-flat" value="Đăng xuất" action="#{loginBean.logout()}" /></div>
+                                            <div class="pull-right"> <p:commandButton class="btn btn-default btn-flat" value="Đăng xuất" action="#{loginBean.logout()}" /></div>
                                         </h:form>
                                     </li>
                                 </ul>
@@ -58,12 +58,54 @@
                     </div>
                 </nav>
             </header>
-            
+
             <!--dialog info detail-->
-            <p:dialog widgetVar="info" modal="true" header="Thông tin tài khoản" resizable="false">
-                <p:outputPanel id="detailInfo" style="text-align:center;">
-                     <p:outputLabel value="#{inforAdminBean.fullname()}" />
-                </p:outputPanel>
+            <p:dialog widgetVar="info" modal="true" header="Thông tin tài khoản" style="max-width: 500px; min-width: 300px;" resizable="false">
+                <h:form>
+                    <p:outputPanel id="detailInfo" >
+                        <div class="form-group has-feedback">
+                            <h:outputLabel value="Họ tên:" />
+                            <h:inputText disabled="true" class="form-control" value="#{inforAdminBean.fullname()}" style="color: #3c8dbc; font-weight: bold;" />
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h:outputLabel value="Tên đăng nhập:" />
+                            <h:inputText disabled="true" value="#{sessionBean.username()}" class="form-control" style="color: #3c8dbc; font-weight: bold;" />
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h:outputLabel value="Quyền xử lý:" />
+                            <h:inputText disabled="true" value="#{inforAdminBean.quyen()}" class="form-control" style="color: #3c8dbc; font-weight: bold;" />
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h:outputLabel value="Trạng thái:" />
+                            <h:inputText disabled="true" value="#{inforAdminBean.trangThai()}" class="form-control" style="color: #3c8dbc; font-weight: bold;" />
+                        </div>
+                        <p:commandButton class="btn btn-primary btn-block btn-flat" value="Sửa" style="font-weight: bold; background: #3c8dbc; color: #fff;" oncomplete="PF('update').show(); PF('info').hide();" />
+                    </p:outputPanel>
+                </h:form>
+            </p:dialog>
+
+            <p:dialog header="Cập nhập tài khoản" resizable="false" style="max-width: 500px; min-width: 300px;" closable="true" widgetVar="update" modal="true">
+                <h:form>
+                    <p:outputPanel>
+                        <div class="form-group has-feedback">
+                            <h:outputLabel value="Họ tên:" />
+                            <h:inputText class="form-control" value="#{inforAdminBean.fullname()}" style="color: #3c8dbc; font-weight: bold;" />
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h:outputLabel value="Mật khẩu cũ:" />
+                            <h:inputSecret class="form-control" style="color: #3c8dbc; font-weight: bold;" />
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h:outputLabel value="Mật khẩu mới:" />
+                            <h:inputSecret class="form-control" style="color: #3c8dbc; font-weight: bold;" />
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h:outputLabel value="Nhập lại mật khẩu mới:" />
+                            <h:inputSecret class="form-control" style="color: #3c8dbc; font-weight: bold;" />
+                        </div>
+                        <p:commandButton class="btn btn-primary btn-block btn-flat" value="Cập nhập" style="font-weight: bold; background: #3c8dbc; color: #fff; margin-right: 5px;" oncomplete="PF('update').hide();" />
+                    </p:outputPanel>
+                </h:form>
             </p:dialog>
 
             <!--LEFT MENU-->

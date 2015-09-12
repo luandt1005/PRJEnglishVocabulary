@@ -44,4 +44,25 @@ public class InforAdminBean implements Serializable{
         return status;
     }
     
+    public static String trangThai(){
+        String name = "";
+        if(info.getStatus() == 1) {
+            name = "Hoạt động";
+        } else {
+            name = "Tạm dừng";
+        }
+        return name;
+    }
+    
+    public static String quyen(){
+        String name = "";
+        if(info.getAccess() == 0) {
+            name = "Khách";
+        } if(info.getAccess() == 1) {
+            name = "Quản trị";
+        } else {
+            name = "Administrator";
+        }
+        return name;
+    }
 }

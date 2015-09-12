@@ -34,22 +34,22 @@
                         <h:outputLabel value="Tên đăng nhập:" />
                         <h:inputText id="username" maxlength="40" value="#{loginBean.a.username}" class="form-control" a:placeholder="Tên đăng nhập"
                                      required="true" requiredMessage="Bạn chưa nhập tên đăng nhập" />
-                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span> 
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span> 
                     </div>
                     <div class="form-group has-feedback">
                         <h:outputLabel value="Mật khẩu:" />
-                        <p:password id="password" maxlength="40" value="#{loginBean.a.password}" class="form-control" a:placeholder="Mật khẩu"
+                        <h:inputSecret id="password" maxlength="40" value="#{loginBean.a.password}" class="form-control" a:placeholder="Mật khẩu"
                                      required="true" requiredMessage="Bạn chưa nhập mật khẩu" />
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span> 
                     </div>
                     <div class="form-group has-feedback">
                         <h:outputLabel value="Nhập lại mật khẩu:" />
-                        <p:password id="rePassword" maxlength="40" value="#{loginBean.a.rePassword}" class="form-control" a:placeholder="Nhập lại mật khẩu" />
-                        <span class="glyphicon glyphicon-lock form-control-feedback"></span> 
+                        <h:inputSecret id="rePassword" maxlength="40" value="#{loginBean.a.rePassword}" class="form-control" a:placeholder="Nhập lại mật khẩu" />
+                        <span class="glyphicon glyphicon-log-in form-control-feedback"></span> 
                     </div>
                     <div class="row"> 
                         <div class="col-xs-4">
-                            <p:commandButton id="register" class="btn btn-primary btn-block btn-flat" update="main" actionListener="#{loginBean.register}" value="Đăng ký" />
+                            <h:commandButton id="register" class="btn btn-primary btn-block btn-flat" action="#{loginBean.register}" value="Đăng ký" />
                         </div>
                     </div>
                 </h:form>

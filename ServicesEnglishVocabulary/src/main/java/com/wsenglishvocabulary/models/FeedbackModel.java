@@ -51,10 +51,10 @@ public class FeedbackModel {
         PreparedStatement ps = null;
         Connection c = null;
         try {
-            String sql = "INSERT INTO feedback VALUES (" + content + ");";
+            String sql = "INSERT INTO feedback VALUES (?);";
             c = DbPool.getConnection();
             ps = c.prepareStatement(sql);
-//            ps.setString(1, content);
+            ps.setString(1, content);
             ps.executeUpdate();
             result = true;
         } catch (Exception e) {
