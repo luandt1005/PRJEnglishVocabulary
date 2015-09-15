@@ -6,6 +6,7 @@
 package com.wsenglishvocabulary.models;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -164,6 +165,52 @@ public class Result {
             object.put("error", 0);
             object.put("total", arr.size());
             object.put("row", jsonArray);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return object;
+    }
+    
+    //success message
+    public static JSONObject successGcmMsg(ArrayList<GcmMessage> arr) {
+        JSONObject object = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        JSONObject row;
+        try {
+            for (int i = 0; i < arr.size(); i++) {
+                row = new JSONObject();
+                row.put("id", arr.get(i).getId());
+                row.put("title", arr.get(i).getTitle());
+                row.put("content", arr.get(i).getContent());
+                row.put("url_image", arr.get(i).getUrl_image());
+                row.put("link", arr.get(i).getLink());
+                row.put("date_create", arr.get(i).getDate_create());
+                jsonArray.put(row);
+            }
+            object.put("success", 1);
+            object.put("error", 0);
+            object.put("total", arr.size());
+            object.put("row", jsonArray);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return object;
+    }
+    
+    //success RegId
+    public static JSONObject successRegId(List<String> arr) {
+        JSONObject object = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        JSONObject row;
+        try {
+            object.put("success", 1);
+            object.put("error", 0);
+            object.put("total", arr.size());
+            object.put("row", arr);
             
         } catch (Exception e) {
             e.printStackTrace();

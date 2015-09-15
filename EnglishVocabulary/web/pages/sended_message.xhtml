@@ -20,13 +20,13 @@
                         </ol>
                     </section>
                     <section class="content">
-                        <p:dataTable var="f"
+                        <p:dataTable var="msg"
                                      id="table"
-                                     value="#{feedbackBean.data}"
-                                     rowKey="#{f.id}"
+                                     value="#{gcmMessageBean.data}"
+                                     rowKey="#{msg.id}"
                                      rowIndexVar="rowIndex"
                                      emptyMessage="Không có dữ liệu."
-                                     selection="#{feedbackBean.dataSelected}"
+                                     selection="#{gcmMessageBean.dataSelected}"
                                      rows="10"
                                      paginator="true"
                                      paginatorPosition="bottom"
@@ -34,34 +34,50 @@
                                      rowsPerPageTemplate="10,15,20">
                             <f:facet name="header">
                                 <p:outputPanel autoUpdate="true" id="action">
-                                    <p:commandButton icon="fa fa-remove" value="Xóa" disabled="#{feedbackBean.disableBtnDelete}" style="float: left" oncomplete="PF('deleteMultiItem').show();" />
+                                    <p:commandButton icon="fa fa-remove" value="Xóa" disabled="#{gcmMessageBean.disableBtnDelete}" style="float: left" oncomplete="PF('deleteMultiItem').show();" />
                                     <p:commandButton icon="fa fa-refresh" value="Làm mới" style="float: left" onclick="window.location.replace(window.location.href)" />
                                 </p:outputPanel >
                             </f:facet>
-                            <p:ajax event="rowSelectCheckbox" listener="#{feedbackBean.onRowCheckboxSelect}" update="main"/>
-                            <p:ajax event="rowSelect" listener="#{feedbackBean.onRowCheckboxSelect}" update="main"/>
+                            <p:ajax event="rowSelectCheckbox" listener="#{gcmMessageBean.onRowCheckboxSelect}" update="main"/>
+                            <p:ajax event="rowSelect" listener="#{gcmMessageBean.onRowCheckboxSelect}" update="main"/>
                             <p:column headerText="STT" style="width: 50px; text-align: center;" >
                                 <h:outputText value="#{rowIndex + 1}" />
                             </p:column>
 
-                            <p:column headerText="Nội dung" >
-                                <h:outputText value="#{f.content}" />
+                            <p:column headerText="Tiêu đề" >
+                                <h:outputText value="#{msg.title}" />
+                            </p:column>
+                            
+                            <p:column headerText="Nội dung" width="40%" >
+                                <h:outputText value="#{msg.content}" />
+                            </p:column>
+                            
+                            <p:column headerText="Link ảnh" >
+                                <h:outputText value="#{msg.url_image}" />
+                            </p:column>
+                            
+                            <p:column headerText="Link web" >
+                                <h:outputText value="#{msg.link}" />
+                            </p:column>
+                            
+                            <p:column headerText="Ngày tạo" >
+                                <h:outputText value="#{msg.date_create}" />
                             </p:column>
 
-                            <p:column selectionMode="multiple" visible="#{feedbackBean.visible}" style="width: 35px; text-align: center;" />
+                            <p:column selectionMode="multiple"  visible="#{gcmMessageBean.visible}" style="width: 35px; text-align: center;" />
                             <p:column style="width: 40px; text-align: center;" headerText="Xóa">
-                                <p:selectBooleanCheckbox style="margin: 0 auto"  value="#{f.check}" >
-                                    <p:ajax listener="#{feedbackBean.selectCheckbox}" update="main" />
+                                <p:selectBooleanCheckbox style="margin: 0 auto"  value="#{msg.check}" >
+                                    <p:ajax listener="#{gcmMessageBean.selectCheckbox}" update="main" />
                                 </p:selectBooleanCheckbox>
                             </p:column>
                         </p:dataTable>  
                         <p:dialog widgetVar="deleteMultiItem" closable="false" modal="true" header="Xác nhận xóa" resizable="false">
                             <p:outputPanel style="text-align:center; margin-top: 20px;">
-                                <h:outputText style="font-size: 14px;" id="sizedelete" value="Bạn có thật sự muốn xóa (#{feedbackBean.sizeDataSelected}) bản ghi đã chọn?" />
+                                <h:outputText style="font-size: 14px;" id="sizedelete" value="Bạn có thật sự muốn xóa (#{gcmMessageBean.sizeDataSelected}) bản ghi đã chọn?" />
                             </p:outputPanel>
                             <p:outputPanel style="text-align:center;">
                                 <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 20px;" oncomplete="PF('deleteMultiItem').hide();" />
-                                <p:commandButton value="Xóa" icon="ui-icon-check" style="margin-top: 20px; margin-left: 10px;" actionListener="#{feedbackBean.delete}" update="main" oncomplete="PF('deleteMultiItem').hide();" />
+                                <p:commandButton value="Xóa" icon="ui-icon-check" style="margin-top: 20px; margin-left: 10px;" actionListener="#{gcmMessageBean.delete}" update="main" oncomplete="PF('deleteMultiItem').hide();" />
                             </p:outputPanel>
                         </p:dialog>
                     </section>
