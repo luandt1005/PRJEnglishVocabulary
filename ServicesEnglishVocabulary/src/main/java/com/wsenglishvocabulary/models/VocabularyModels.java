@@ -59,8 +59,9 @@ public class VocabularyModels {
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-            rs.next();
-            id = rs.getInt(1);
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
         } catch (Exception e) {
             throw e;
         } finally {

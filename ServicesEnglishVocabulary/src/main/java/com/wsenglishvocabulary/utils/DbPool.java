@@ -20,6 +20,7 @@ import java.util.LinkedList;
  * @author luand_000
  */
 public class DbPool {
+
     private static Log log = new Log("DbPool");
     private static LinkedList pool = new LinkedList();
     public final static int MAX_CONNECTIONS = 20;
@@ -28,29 +29,30 @@ public class DbPool {
     public DbPool() {
         build(INIT_CONNECTIONS);
     }
-    
+
 //    public static void main(String[] args) {
 //        makeDbConnection();
 //    }
-
     private static void build(int number) {
         log.Log("Init " + number + "connection");
         Connection c = null;
         release(); //đóng tất cả các kết nối nếu còn khi khởi tạo.
         //init connection
-        for(int i = 0; i < number; i++){
+        for (int i = 0; i < number; i++) {
             try {
                 c = makeDbConnection(); //tạo connection mới.
             } catch (Exception e) {
                 log.LogError(e.getMessage());
             }
-            if(c != null){
+            if (c != null) {
                 pool.addLast(c);
             }
         }
         log.Log("Number connection " + number);
     }
+
     //tạo connection
+
     private static Connection makeDbConnection() {
         Connection c = null;
         try {
@@ -58,7 +60,7 @@ public class DbPool {
             String dbUrl = "jdbc:sqlserver://localhost\\MSSQLSERVER;databaseName=EnglishVocabulary";
             String user = "luandt";
             String pass = "luandt1005";
-            
+
             c = DriverManager.getConnection(dbUrl, user, pass);
             log.Log("Connected DB");
         } catch (Exception e) {
@@ -66,10 +68,10 @@ public class DbPool {
         }
         return c;
     }
-    
+
     //xoa tat ca cac connection trong pool.
     private static void release() {
-        synchronized (pool){
+        synchronized (pool) {
             for (Iterator iterator = pool.iterator(); iterator.hasNext();) {
                 Connection c = (Connection) iterator.next();
                 try {
@@ -82,14 +84,14 @@ public class DbPool {
             pool.clear();
         }
     }
-    
-    public static Connection getConnection(){
+
+    public static Connection getConnection() {
         Connection c = null;
         try {
-            synchronized(pool){
+            synchronized (pool) {
                 c = (Connection) pool.removeFirst();
             }
-            if(c == null){
+            if (c == null) {
                 c = makeDbConnection();
             }
             try {
@@ -109,28 +111,28 @@ public class DbPool {
         }
         return c;
     }
-    
+
     //close connection
-    public static void closeConnection(Connection c){
+    public static void closeConnection(Connection c) {
         try {
-            if(c == null || c.isClosed()){
+            if (c == null || c.isClosed()) {
                 log.Log("Connection is null or closed: " + c);
                 return;
             }
-            if(pool.size() > MAX_CONNECTIONS){
+            if (pool.size() > MAX_CONNECTIONS) {
                 c.close();
                 return;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        synchronized(pool){
+
+        synchronized (pool) {
             pool.addLast(c);
             pool.notify();
         }
     }
-    
+
     //phương thức close một connection và preparedStatement
     public static void releaseConnection(Connection conn, PreparedStatement preStmt) {
         closeConnection(conn);
@@ -142,7 +144,7 @@ public class DbPool {
             e.printStackTrace();
         }
     }
-    
+
     //close connection, preparedstatement, resultset
     public static void releaseConnection(Connection conn, PreparedStatement preStmt, ResultSet rs) {
         releaseConnection(conn, preStmt);

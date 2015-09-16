@@ -18,7 +18,9 @@ import java.util.ArrayList;
  * @author LuanDT
  */
 public class GcmMessageModel {
+
     //get All Feedback
+
     public ArrayList<GcmMessage> getAllMessage() throws Exception {
         ArrayList<GcmMessage> data = new ArrayList<GcmMessage>();
         Statement statement = null;
@@ -30,7 +32,7 @@ public class GcmMessageModel {
             statement = c.createStatement();
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                GcmMessage gm  = new GcmMessage();
+                GcmMessage gm = new GcmMessage();
                 gm.setId(resultSet.getLong(1));
                 gm.setTitle(resultSet.getString(2));
                 gm.setContent(resultSet.getString(3));
@@ -49,28 +51,32 @@ public class GcmMessageModel {
     }
 
     //add Feedback
-    public boolean addMessage(GcmMessage message) throws SQLException {
-        boolean result = false;
+    public long addMessage(GcmMessage message) throws SQLException {
+        long id = -1;
         PreparedStatement ps = null;
         Connection c = null;
         try {
             String sql = "INSERT INTO gcm_message (title, content, url_image, link) VALUES (?, ?, ?, ?);";
             c = DbPool.getConnection();
-            ps = c.prepareStatement(sql);
+            ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, message.getTitle());
             ps.setString(2, message.getContent());
             ps.setString(3, message.getUrl_image());
             ps.setString(4, message.getLink());
             ps.executeUpdate();
-            result = true;
+
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
         } catch (Exception e) {
             throw e;
         } finally {
             DbPool.releaseConnection(c, ps);
         }
-        return result;
+        return id;
     }
-    
+
     //delete list
     public boolean deleteList(ArrayList<GcmMessage> list) throws SQLException {
         boolean result = false;
@@ -79,7 +85,7 @@ public class GcmMessageModel {
         try {
             c = DbPool.getConnection();
             c.setAutoCommit(false);
-            for(GcmMessage message : list){
+            for (GcmMessage message : list) {
                 String SQL = "DELETE gcm_message WHERE id = ?;";
                 statement = c.prepareStatement(SQL);
                 statement.setLong(1, message.getId());

@@ -5,7 +5,6 @@
  */
 package com.wsenglishvocabulary.rest;
 
-import com.wsenglishvocabulary.models.Feedback;
 import com.wsenglishvocabulary.models.GcmMessage;
 import com.wsenglishvocabulary.models.GcmMessageModel;
 import com.wsenglishvocabulary.models.Result;
@@ -39,7 +38,9 @@ public class GcmMessageServicess {
     }
 
     /**
-     * Retrieves representation of an instance of com.wsenglishvocabulary.rest.GcmMessageServicess
+     * Retrieves representation of an instance of
+     * com.wsenglishvocabulary.rest.GcmMessageServicess
+     *
      * @return an instance of org.codehaus.jettison.json.JSONObject
      */
     @GET
@@ -68,11 +69,11 @@ public class GcmMessageServicess {
         msg.setContent(content);
         msg.setUrl_image(url_image);
         msg.setLink(link);
-        
+
         try {
-            boolean inserted = model.addMessage(msg);
-            if (inserted) {
-                json = Result.success();
+            long id = model.addMessage(msg);
+            if (id != -1) {
+                json = Result.successInsertMsg(id);
             } else {
                 json = Result.error();
             }
@@ -110,5 +111,5 @@ public class GcmMessageServicess {
 
         return json;
     }
-    
+
 }

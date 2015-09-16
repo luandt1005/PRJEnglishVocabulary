@@ -5,13 +5,11 @@
  */
 package com.wsenglishvocabulary.models;
 
-import java.io.Serializable;
-
 /**
  *
  * @author LuanDT
  */
-public class GcmMessage implements Serializable{
+public class GcmMessage {
     private long id;
     private String title;
     private String content;

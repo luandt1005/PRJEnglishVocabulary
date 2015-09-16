@@ -28,6 +28,19 @@ public class Result {
         }
         return object;
     }
+    
+    //success insert message
+    public static JSONObject successInsertMsg(long id) {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("success", 1);
+            object.put("error", 0);
+            object.put("id", id);
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+        return object;
+    }
 
     //success no arr
     public static JSONObject successLogin(long user_id, String fullname) {
