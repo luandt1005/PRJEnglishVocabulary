@@ -20,7 +20,7 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 @ViewScoped
 public class AdministratorBean extends MessageUtil implements Serializable {
-    
+
     private Administrator admin, selectedAdmin;
     private AdministratorModels models;
     private ArrayList<Administrator> data, dataSelected;
@@ -50,16 +50,16 @@ public class AdministratorBean extends MessageUtil implements Serializable {
             addErrorMsg("Lỗi!");
         }
     }
-    
+
     //updateStatus
     public void updateStatus() {
         int status;
-        if(selectedAdmin.getStatus() == 1){
+        if (selectedAdmin.getStatus() == 1) {
             status = 0;
         } else {
             status = 1;
         }
-        
+
         boolean check = models.updateStatus(selectedAdmin.getId(), status);
         if (check) {
             addSuccessMsg("Đổi trạng thái thành công");
@@ -68,11 +68,11 @@ public class AdministratorBean extends MessageUtil implements Serializable {
             addErrorMsg("Lỗi!");
         }
     }
-    
+
     //changeAccess
     public void changeAccess() {
         int access;
-        if(selectedAdmin.getAccess() == 1){
+        if (selectedAdmin.getAccess() == 1) {
             access = 0;
         } else {
             access = 1;
@@ -85,7 +85,7 @@ public class AdministratorBean extends MessageUtil implements Serializable {
             addErrorMsg("Lỗi!");
         }
     }
-    
+
     //visible btn delete, edit
     public boolean isStatusBtnDelete(Administrator a) {
         if (InforAdminBean.access() > a.getAccess()) {
@@ -95,59 +95,59 @@ public class AdministratorBean extends MessageUtil implements Serializable {
         }
         return statusBtnDelete;
     }
-    
+
     //trang thai thay doi
-    public String trangThaiThayDoi(int status){
+    public String trangThaiThayDoi(int status) {
         String name = "";
-        if(status == 1) {
+        if (status == 1) {
             name = "Tạm dừng";
         } else {
             name = "Hoạt động";
         }
         return name;
     }
-    
+
     //quyen thay doi
-    public String quyenThayDoi(int access){
+    public String quyenThayDoi(int access) {
         String name = "";
-        if(access == 1) {
+        if (access == 1) {
             name = "Khách";
         } else {
             name = "Quản trị";
         }
         return name;
     }
-    
+
     public Administrator getSelectedAdmin() {
         return selectedAdmin;
     }
-    
+
     public void setSelectedAdmin(Administrator selectedAdmin) {
         this.selectedAdmin = selectedAdmin;
     }
-    
+
     public ArrayList<Administrator> getDataSelected() {
         return dataSelected;
     }
-    
+
     public void setDataSelected(ArrayList<Administrator> dataSelected) {
         this.dataSelected = dataSelected;
     }
-    
+
     public Administrator getAdmin() {
         return admin;
     }
-    
+
     public void setAdmin(Administrator admin) {
         this.admin = admin;
     }
-    
+
     public ArrayList<Administrator> getData() {
         return data;
     }
-    
+
     public void setData(ArrayList<Administrator> data) {
         this.data = data;
     }
-    
+
 }

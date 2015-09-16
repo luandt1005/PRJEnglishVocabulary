@@ -11,7 +11,8 @@ import java.io.Serializable;
  *
  * @author LuanDT
  */
-public class GcmMessage implements Serializable{
+public class GcmMessage implements Serializable {
+
     private long id;
     private String title;
     private String content;
@@ -32,7 +33,6 @@ public class GcmMessage implements Serializable{
         this.date_create = date_create;
     }
 
-    
     public boolean isCheck() {
         return check;
     }
@@ -88,5 +88,5 @@ public class GcmMessage implements Serializable{
     public void setDate_create(String date_create) {
         this.date_create = date_create;
     }
-    
+
 }

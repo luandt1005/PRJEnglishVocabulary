@@ -30,7 +30,7 @@ public class LoginBean extends MessageUtil implements Serializable {
     private Administrator a;
     private AdministratorModels models;
     private String focus = "fullname";
-            
+
     /**
      * Creates a new instance of LoginBean
      */
@@ -69,7 +69,7 @@ public class LoginBean extends MessageUtil implements Serializable {
                 username.setPath("/");
                 username.setHttpOnly(true);
                 response.addCookie(username);
-                
+
             }
 
             return "pages/index?faces-redirect=true";
@@ -87,7 +87,7 @@ public class LoginBean extends MessageUtil implements Serializable {
             return false;
         }
     }
-    
+
     public String logout() {
         //hủy session
         HttpSession session = SessionBean.session(false);
@@ -106,11 +106,11 @@ public class LoginBean extends MessageUtil implements Serializable {
 
         return "/faces/login?faces-redirect=true";
     }
-    
-    public void register(){
-        if(validateRegister()){
+
+    public void register() {
+        if (validateRegister()) {
             ResultLogin result = models.registerAdmin(a);
-            if(result.isCheck()){
+            if (result.isCheck()) {
                 addSuccessMsg("Đăng ký thành công");
                 a.setFullname("");
                 a.setUsername("");
@@ -122,19 +122,19 @@ public class LoginBean extends MessageUtil implements Serializable {
             }
         }
     }
-    
-    public boolean validateRegister(){
-        if(!ValidatorUtils.isUsername(a.getUsername())){
+
+    public boolean validateRegister() {
+        if (!ValidatorUtils.isUsername(a.getUsername())) {
             addErrorMsg("Tên đăng nhập không được chứa ký tự đặc biệt.");
             focus = "username";
             return false;
         }
-        if(!a.getPassword().equals(a.getRePassword())){
+        if (!a.getPassword().equals(a.getRePassword())) {
             addErrorMsg("Hai mật khẩu bạn nhập không trùng khớp.");
             focus = "password";
             return false;
         } else {
             return true;
-        } 
+        }
     }
 }

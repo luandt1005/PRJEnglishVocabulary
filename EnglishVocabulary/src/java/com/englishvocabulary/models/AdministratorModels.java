@@ -22,7 +22,6 @@ import org.json.JSONObject;
 public class AdministratorModels {
 
     //get all Administrator
-
     public ArrayList<Administrator> getAllAdminUser() {
         ArrayList<Administrator> data = new ArrayList<Administrator>();
         Client client = new Client();
@@ -82,7 +81,7 @@ public class AdministratorModels {
         }
         return new ResultLogin(check, id, fullname, access);
     }
-    
+
     //info admin
     public ResultLogin infoAdmin(String username) {
         boolean check = false;
@@ -138,7 +137,7 @@ public class AdministratorModels {
         }
         return result;
     }
-    
+
     //change status
     public boolean updateStatus(long id, int status) {
         boolean result = false;
@@ -163,7 +162,7 @@ public class AdministratorModels {
         }
         return result;
     }
-    
+
     //change Access
     public boolean changeAccess(long id, int access) {
         boolean result = false;
@@ -188,7 +187,7 @@ public class AdministratorModels {
         }
         return result;
     }
-    
+
     //add
     public ResultLogin registerAdmin(Administrator a) {
         boolean result = false;

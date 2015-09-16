@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author LuanDT
  */
 public class Administrator implements Serializable {
+
     private long id;
     private String username;
     private String fullname;
@@ -22,9 +23,9 @@ public class Administrator implements Serializable {
     private boolean remember;
     private String quyen = "";
     private String trangthai = "";
-   
+
     public String getTrangthai() {
-        if(status == 1){
+        if (status == 1) {
             trangthai = "Hoạt động";
         } else {
             trangthai = "Tạm dừng";
@@ -117,5 +118,5 @@ public class Administrator implements Serializable {
     public void setStatus(int status) {
         this.status = status;
     }
-    
+
 }

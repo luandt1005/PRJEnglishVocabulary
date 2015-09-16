@@ -18,9 +18,10 @@ import javax.servlet.http.HttpSession;
  */
 @ManagedBean
 @SessionScoped
-public class SessionBean  implements Serializable {
+public class SessionBean implements Serializable {
 
     private String server;
+
     /**
      * Creates a new instance of SessionBean
      */
@@ -36,16 +37,16 @@ public class SessionBean  implements Serializable {
     public void setServer(String server) {
         this.server = server;
     }
-    
-    public static HttpSession session(boolean value){
+
+    public static HttpSession session(boolean value) {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(value);
         return session;
     }
-    
-    public static String username(){
+
+    public static String username() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         String username = (String) session.getAttribute("username");
         return username;
     }
-    
+
 }

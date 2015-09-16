@@ -25,25 +25,25 @@
                     <p:focus id="forcus" for="#{loginBean.focus}" />
                     <h:messages style="color:red;" showDetail="false" />
                     <div class="form-group has-feedback">
-                        <h:outputLabel value="Họ tên:" />
+                        <h:outputLabel value="Họ tên:*" />
                         <h:inputText id="fullname" maxlength="40" class="form-control" a:placeholder="Họ tên" 
                                      required="true" value="#{loginBean.a.fullname}" requiredMessage="Bạn chưa nhập họ tên" />
                         <span class="glyphicon glyphicon-user form-control-feedback"></span> 
                     </div>
                     <div class="form-group has-feedback">
-                        <h:outputLabel value="Tên đăng nhập:" />
+                        <h:outputLabel value="Tên đăng nhập:*" />
                         <h:inputText id="username" maxlength="40" value="#{loginBean.a.username}" class="form-control" a:placeholder="Tên đăng nhập"
                                      required="true" requiredMessage="Bạn chưa nhập tên đăng nhập" />
                         <span class="glyphicon glyphicon-user form-control-feedback"></span> 
                     </div>
                     <div class="form-group has-feedback">
-                        <h:outputLabel value="Mật khẩu:" />
+                        <h:outputLabel value="Mật khẩu:*" />
                         <h:inputSecret id="password" maxlength="40" value="#{loginBean.a.password}" class="form-control" a:placeholder="Mật khẩu"
                                      required="true" requiredMessage="Bạn chưa nhập mật khẩu" />
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span> 
                     </div>
                     <div class="form-group has-feedback">
-                        <h:outputLabel value="Nhập lại mật khẩu:" />
+                        <h:outputLabel value="Nhập lại mật khẩu:*" />
                         <h:inputSecret id="rePassword" maxlength="40" value="#{loginBean.a.rePassword}" class="form-control" a:placeholder="Nhập lại mật khẩu" />
                         <span class="glyphicon glyphicon-log-in form-control-feedback"></span> 
                     </div>

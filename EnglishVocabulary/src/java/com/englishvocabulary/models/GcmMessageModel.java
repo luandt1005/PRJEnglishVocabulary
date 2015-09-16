@@ -20,13 +20,14 @@ import org.json.JSONObject;
  * @author LuanDT
  */
 public class GcmMessageModel {
+
     //get all mesage
     public ArrayList<GcmMessage> getAllMesage() {
         ArrayList<GcmMessage> data = new ArrayList<GcmMessage>();
         Client client = new Client();
         WebResource webResource = client.resource("http://localhost:8080/ServicesEnglishVocabulary/rest/message");
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
-        if(response.getStatus() != 200){
+        if (response.getStatus() != 200) {
             System.out.println("Connect fail: " + response.getStatus());
         } else {
             try {
@@ -47,11 +48,11 @@ public class GcmMessageModel {
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
-            
+
         }
         return data;
     }
-    
+
     //delete
     public boolean delete(String id) {
         boolean result = false;
@@ -60,13 +61,13 @@ public class GcmMessageModel {
         form.add("id", id);
         WebResource webResource = client.resource("http://localhost:8080/ServicesEnglishVocabulary/rest/message/delete");
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, form);
-        if(response.getStatus() != 200){
+        if (response.getStatus() != 200) {
             System.out.println("Connect fail: " + response.getStatus());
         } else {
             try {
                 String output = response.getEntity(String.class);
                 JSONObject object = new JSONObject(output);
-                if(object.getInt("success") == 1){
+                if (object.getInt("success") == 1) {
                     result = true;
                 }
             } catch (JSONException ex) {
@@ -75,31 +76,33 @@ public class GcmMessageModel {
         }
         return result;
     }
-    
+
     //add
-    public boolean add(GcmMessage msg) {
+    public ResultLogin add(GcmMessage msg) {
         boolean result = false;
+        long id = -1;
         Client client = new Client();
         Form form = new Form();
         form.add("title", msg.getTitle());
         form.add("content", msg.getContent());
         form.add("url_image", msg.getUrl_image());
         form.add("link", msg.getLink());
-        WebResource webResource = client.resource("http://localhost:8080/ServicesEnglishVocabulary/rest/message/add ");
+        WebResource webResource = client.resource("http://localhost:8080/ServicesEnglishVocabulary/rest/message/add");
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, form);
-        if(response.getStatus() != 200){
+        if (response.getStatus() != 200) {
             System.out.println("Connect fail: " + response.getStatus());
         } else {
             try {
                 String output = response.getEntity(String.class);
                 JSONObject object = new JSONObject(output);
-                if(object.getInt("success") == 1){
+                if (object.getInt("success") == 1) {
                     result = true;
+                    id = object.getLong("id");
                 }
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
         }
-        return result;
+        return new ResultLogin(result, id);
     }
 }

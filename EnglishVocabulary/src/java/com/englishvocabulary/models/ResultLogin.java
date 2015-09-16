@@ -17,6 +17,11 @@ public class ResultLogin {
     private int access;
     private int status;
 
+    public ResultLogin(boolean check, long user_id) {
+        this.check = check;
+        this.user_id = user_id;
+    }
+
     public ResultLogin(boolean check, String fullname) {
         this.check = check;
         this.fullname = fullname;

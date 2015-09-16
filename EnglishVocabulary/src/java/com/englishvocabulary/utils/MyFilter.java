@@ -5,8 +5,6 @@
  */
 package com.englishvocabulary.utils;
 
-import com.englishvocabulary.bean.InforAdminBean;
-import com.englishvocabulary.bean.SessionBean;
 import com.englishvocabulary.models.AdministratorModels;
 import com.englishvocabulary.models.ResultLogin;
 import java.io.IOException;
@@ -57,7 +55,7 @@ public class MyFilter implements Filter {
                 System.out.println("------------>>>goi info");
                 AdministratorModels models = new AdministratorModels();
                 ResultLogin info = models.infoAdmin(username);
-                if(info.getStatus() == 0) {
+                if (info.getStatus() == 0) {
                     res.sendRedirect(req.getContextPath() + "/faces/login.xhtml");
                 } else {
                     chain.doFilter(req, res);

@@ -20,13 +20,14 @@ import org.json.JSONObject;
  * @author LuanDT
  */
 public class FeedbackModels {
+
     //get all feedBack
     public ArrayList<Feedback> getAllFeedback() {
         ArrayList<Feedback> data = new ArrayList<Feedback>();
         Client client = new Client();
         WebResource webResource = client.resource("http://localhost:8080/ServicesEnglishVocabulary/rest/feedback");
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
-        if(response.getStatus() != 200){
+        if (response.getStatus() != 200) {
             System.out.println("Connect fail: " + response.getStatus());
         } else {
             try {
@@ -42,11 +43,11 @@ public class FeedbackModels {
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
-            
+
         }
         return data;
     }
-    
+
     //delete
     public boolean delete(String id) {
         boolean result = false;
@@ -55,13 +56,13 @@ public class FeedbackModels {
         form.add("id", id);
         WebResource webResource = client.resource("http://localhost:8080/ServicesEnglishVocabulary/rest/feedback/deletelist");
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, form);
-        if(response.getStatus() != 200){
+        if (response.getStatus() != 200) {
             System.out.println("Connect fail: " + response.getStatus());
         } else {
             try {
                 String output = response.getEntity(String.class);
                 JSONObject object = new JSONObject(output);
-                if(object.getInt("success") == 1){
+                if (object.getInt("success") == 1) {
                     result = true;
                 }
             } catch (JSONException ex) {

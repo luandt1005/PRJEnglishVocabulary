@@ -21,13 +21,14 @@ import org.json.JSONObject;
  * @author LuanDT
  */
 public class GcmRegistrationModels {
+
     //get all RegId
     public List<String> getAllRegId() {
         List<String> data = new ArrayList<String>();
         Client client = new Client();
         WebResource webResource = client.resource("http://localhost:8080/ServicesEnglishVocabulary/rest/gcm");
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
-        if(response.getStatus() != 200){
+        if (response.getStatus() != 200) {
             System.out.println("Connect fail: " + response.getStatus());
         } else {
             try {
@@ -40,11 +41,11 @@ public class GcmRegistrationModels {
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
-            
+
         }
         return data;
     }
-    
+
     //add
     public boolean addRegId(String reg_id) {
         boolean result = false;

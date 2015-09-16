@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Tin đã gửi</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="content">
+                <h:form id="main">
+                    <section class="content-header">
+                        <h1> Trang chủ <small>Tin đã gửi</small> </h1>
+                        <ol class="breadcrumb">
+                            <li><a href="index.xhtml"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+                            <li class="active">Tin đã gửi</li>
+                        </ol>
+                    </section>
+                    <section class="content">
+                        <p:dataTable var="msg"
+                                     id="table"
+                                     value="#{gcmMessageBean.data}"
+                                     rowKey="#{msg.id}"
+                                     rowIndexVar="rowIndex"
+                                     emptyMessage="Không có dữ liệu."
+                                     selection="#{gcmMessageBean.dataSelected}"
+                                     rows="10"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="10,15,20">
+                            <f:facet name="header">
+                                <p:outputPanel autoUpdate="true" id="action">
+                                    <p:commandButton icon="fa fa-remove" value="Xóa" disabled="#{gcmMessageBean.disableBtnDelete}" style="float: left" oncomplete="PF('deleteMultiItem').show();" />
+                                    <p:commandButton icon="fa fa-plus" value="Tin nhắn mới" style="float: left" update="main" oncomplete="PF('newMessage').show();" />
+                                    <p:commandButton icon="fa fa-refresh" value="Làm mới" style="float: left" onclick="window.location.replace(window.location.href)" />
+                                </p:outputPanel >
+                            </f:facet>
+                            <p:ajax event="rowSelectCheckbox" listener="#{gcmMessageBean.onRowCheckboxSelect}" update="main"/>
+                            <p:ajax event="rowSelect" listener="#{gcmMessageBean.onRowCheckboxSelect}" update="main"/>
+                            <p:column headerText="STT" style="width: 50px; text-align: center;" >
+                                <h:outputText value="#{rowIndex + 1}" />
+                            </p:column>
+
+                            <p:column headerText="Tiêu đề" >
+                                <h:outputText value="#{msg.title}" />
+                            </p:column>
+
+                            <p:column headerText="Nội dung" width="40%" >
+                                <h:outputText value="#{msg.content}" />
+                            </p:column>
+
+                            <p:column headerText="Link ảnh" >
+                                <h:outputText value="#{msg.url_image}" />
+                            </p:column>
+
+                            <p:column headerText="Link web" >
+                                <h:outputText value="#{msg.link}" />
+                            </p:column>
+
+                            <p:column headerText="Ngày tạo" >
+                                <h:outputText value="#{msg.date_create}" />
+                            </p:column>
+
+                            <p:column selectionMode="multiple"  visible="#{gcmMessageBean.visible}" style="width: 35px; text-align: center;" />
+                            <p:column style="width: 40px; text-align: center;" headerText="Xóa">
+                                <p:selectBooleanCheckbox style="margin: 0 auto"  value="#{msg.check}" >
+                                    <p:ajax listener="#{gcmMessageBean.selectCheckbox}" update="main" />
+                                </p:selectBooleanCheckbox>
+                            </p:column>
+                        </p:dataTable>  
+
+                        <!--delete message-->
+                        <p:dialog widgetVar="deleteMultiItem" closable="false" modal="true" header="Xác nhận xóa" resizable="false">
+                            <p:outputPanel style="text-align:center; margin-top: 20px;">
+                                <p:outputLabel id="sizedelete" value="Bạn có thật sự muốn xóa (#{gcmMessageBean.sizeDataSelected}) bản ghi đã chọn?" />
+                            </p:outputPanel>
+                            <p:outputPanel style="text-align:center;">
+                                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 20px;" oncomplete="PF('deleteMultiItem').hide();" />
+                                <p:commandButton value="Xóa" icon="ui-icon-check" style="margin-top: 20px; margin-left: 10px;" actionListener="#{gcmMessageBean.delete}" update="main" oncomplete="PF('deleteMultiItem').hide();" />
+                            </p:outputPanel>
+                        </p:dialog>
+
+                        <!--new message-->
+                        <p:dialog widgetVar="newMessage" visible="#{gcmMessageBean.visibleNewMsg}" 
+                                  closable="false" modal="false" header="Gửi tin nhắn mới" resizable="false" 
+                                  width="50%" maximizable="false" style="max-height: 80%" >
+                            <p:outputPanel style="margin-top: 20px;">
+                                <p:focus id="focus" for="#{gcmMessageBean.focus}" />
+                                <div class="form-group has-feedback">
+                                    <h:outputLabel value="Tiêu đề:*" />
+                                    <h:inputText id="title" class="form-control" value="#{gcmMessageBean.gcmMessage.title}" a:placeholder="Tiêu đề" />
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <h:outputLabel value="Nội dung:*" />
+                                    <h:inputTextarea id="content" class="form-control" value="#{gcmMessageBean.gcmMessage.content}" 
+                                                     a:placeholder="Nội dung" cols="1" rows="3" 
+                                                     style="max-height: 120px; max-width: 100%" />
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <h:outputLabel value="Link ảnh:*" />
+                                    <h:inputText id="image" class="form-control" value="#{gcmMessageBean.gcmMessage.url_image}" a:placeholder="Link ảnh" />
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <h:outputLabel value="Link web:*" />
+                                    <h:inputText id="web" class="form-control" value="#{gcmMessageBean.gcmMessage.link}" a:placeholder="Link web" />
+                                </div>
+
+                            </p:outputPanel>
+                            <p:outputPanel style="text-align:center;">
+                                <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 20px;" oncomplete="PF('newMessage').hide();" />
+                                <p:commandButton value="Gửi" icon="fa fa-send" actionListener="#{gcmMessageBean.newMessage()}" 
+                                                 style="margin-top: 20px; margin-left: 10px;" 
+                                                 update="main" />
+                            </p:outputPanel>
+                        </p:dialog>
+                    </section>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

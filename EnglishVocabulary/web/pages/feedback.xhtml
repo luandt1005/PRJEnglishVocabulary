@@ -58,7 +58,7 @@
                         </p:dataTable>  
                         <p:dialog widgetVar="deleteMultiItem" closable="false" modal="true" header="Xác nhận xóa" resizable="false">
                             <p:outputPanel style="text-align:center; margin-top: 20px;">
-                                <h:outputText style="font-size: 14px;" id="sizedelete" value="Bạn có thật sự muốn xóa (#{feedbackBean.sizeDataSelected}) bản ghi đã chọn?" />
+                                <p:outputLabel id="sizedelete" value="Bạn có thật sự muốn xóa (#{feedbackBean.sizeDataSelected}) bản ghi đã chọn?" />
                             </p:outputPanel>
                             <p:outputPanel style="text-align:center;">
                                 <p:commandButton value="Hủy" icon="ui-icon-close" style="margin-top: 20px;" oncomplete="PF('deleteMultiItem').hide();" />

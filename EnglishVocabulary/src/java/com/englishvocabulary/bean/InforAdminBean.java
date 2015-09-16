@@ -17,10 +17,11 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class InforAdminBean implements Serializable{
+public class InforAdminBean implements Serializable {
 
     private AdministratorModels models;
     private static ResultLogin info;
+
     /**
      * Creates a new instance of InforAdminBean
      */
@@ -29,36 +30,37 @@ public class InforAdminBean implements Serializable{
         info = models.infoAdmin(SessionBean.username());
     }
 
-    public static String fullname(){
+    public static String fullname() {
         String fullname = info.getFullname();
         return fullname;
     }
-    
-    public static int access(){
+
+    public static int access() {
         int access = info.getAccess();
         return access;
     }
-    
-    public static int status(){
+
+    public static int status() {
         int status = info.getStatus();
         return status;
     }
-    
-    public static String trangThai(){
+
+    public static String trangThai() {
         String name = "";
-        if(info.getStatus() == 1) {
+        if (info.getStatus() == 1) {
             name = "Hoạt động";
         } else {
             name = "Tạm dừng";
         }
         return name;
     }
-    
-    public static String quyen(){
+
+    public static String quyen() {
         String name = "";
-        if(info.getAccess() == 0) {
+        if (info.getAccess() == 0) {
             name = "Khách";
-        } if(info.getAccess() == 1) {
+        }
+        if (info.getAccess() == 1) {
             name = "Quản trị";
         } else {
             name = "Administrator";

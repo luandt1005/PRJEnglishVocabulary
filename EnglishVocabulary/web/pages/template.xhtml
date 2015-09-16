@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <title>English Vocabulary</title>
@@ -17,8 +16,6 @@
         <link href="/EnglishVocabulary/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
         <!-- AdminLTE Skins. Choose a skin from the css/skins -->
         <link href="/EnglishVocabulary/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-        <!--Daterange picker--> 
-        <!--<link href="/EnglishVocabulary/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />-->
         <!-- FontAwesome 4.3.0 -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <!-- Ionicons 2.0.0 -->
@@ -31,7 +28,6 @@
             <!--HEADER-->
             <header class="main-header"> 
                 <!-- Logo --> 
-                <!--<a href="#" class="logo">English Vocabulary</a>--> 
                 <a class="logo">English <small>Vocabulary</small> </a>
                 <!-- Header Navbar: style can be found in header.less -->
                 <nav class="navbar navbar-static-top" role="navigation"> 
@@ -133,12 +129,13 @@
                         <li><a href="#{sessionBean.server}/pages/index.xhtml"><i class="fa fa-home"></i> Trang chủ</a></li>
                         <li><a href="#{sessionBean.server}/pages/administrator.xhtml"><i class="fa fa-users"></i> Quản trị viên</a></li>
                         <li><a href="#{sessionBean.server}/pages/feedback.xhtml"><i class="fa fa-comment"></i> Phản hồi người dùng</a></li>
-                        <li class="treeview"> <a href="#"> <i class="fa fa-envelope"></i> <span>Quản lý tin nhắn</span> <i class="fa fa-angle-left pull-right"></i> </a>
+                        <li><a href="#{sessionBean.server}/pages/message.xhtml"><i class="fa fa-envelope"></i> Quản lý tin nhắn</a></li>
+                        <!--<li class="treeview"> <a href="#"> <i class="fa fa-envelope"></i> <span>Quản lý tin nhắn</span> <i class="fa fa-angle-left pull-right"></i> </a>
                             <ul class="treeview-menu">
-                                <li><a href="#{sessionBean.server}/pages/new_message.xhtml"><i class="fa fa-paper-plane"></i> Tạo mới</a></li>
-                                <li><a href="#{sessionBean.server}/pages/sended_message.xhtml"><i class="fa fa-list"></i> Tin đã gửi</a></li>
+                                <li><a href=""><i class="fa fa-paper-plane"></i> Tạo mới</a></li>
+                                <li><a href=""><i class="fa fa-list"></i> Tin đã gửi</a></li>
                             </ul>
-                        </li>
+                        </li>-->
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -159,26 +156,13 @@
         </div>
         <!--END WRAPPER-->
 
-        <!-- jQuery 2.1.3 -->
-        <!--<script src="/EnglishVocabulary/plugins/jQuery/jQuery-2.1.3.min.js"></script>-->
         <!-- Bootstrap 3.3.2 JS -->
         <script src="/EnglishVocabulary/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <!-- jQuery table -->
         <script src="/EnglishVocabulary/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
         <!-- AdminLTE App -->
         <script src="/EnglishVocabulary/dist/js/app.min.js" type="text/javascript"></script>
-        <!-- InputMask -->
-        <!--<script src="plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>-->
-        <!--date-range-picker--> 
-        <!--<script src="plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>-->
-        <!--click input date-->
-        <!--<script type="text/javascript">
-            $(function () {
-                //Date range picker
-                $('#reservation').daterangepicker();
-                
-            });
-        </script>-->
+        
     </h:body>
 
 </html>
