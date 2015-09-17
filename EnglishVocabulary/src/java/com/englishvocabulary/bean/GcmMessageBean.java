@@ -226,10 +226,12 @@ public class GcmMessageBean extends MessageUtil implements Serializable {
                 visibleNewMsg = false;
                 visible = false;
                 //sen gcm mesage
-                try {
-                    sendMessage(gcmMessage.getTitle(), gcmMessage.getContent(), gcmMessage.getUrl_image(), gcmMessage.getLink(), listRegId);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                if (!listRegId.isEmpty()) {
+                    try {
+                        sendMessage(gcmMessage.getTitle(), gcmMessage.getContent(), gcmMessage.getUrl_image(), gcmMessage.getLink(), listRegId);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
                 clearInputText();
             } else {
@@ -291,6 +293,8 @@ public class GcmMessageBean extends MessageUtil implements Serializable {
         builder.addData("content", content);
         builder.addData("url_image", url_image);
         builder.addData("link", link);
+
+        System.out.println("mesage: " + title + "---" + content);
 
         Message message = builder.build();
         MulticastResult result = null;
