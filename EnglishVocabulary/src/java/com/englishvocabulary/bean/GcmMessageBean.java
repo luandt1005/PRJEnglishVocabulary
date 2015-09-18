@@ -39,9 +39,18 @@ public class GcmMessageBean extends MessageUtil implements Serializable {
     private ArrayList<GcmMessage> data, dataSelected;
     private int sizeDataSelected;
     private boolean disableBtnDelete = true;
+    private boolean disableBtnNewMsg = true;
     private boolean visibleNewMsg;
     private String focus = "title";
     private List<String> listRegId;
+
+    public boolean isDisableBtnNewMsg() {
+        return disableBtnNewMsg;
+    }
+
+    public void setDisableBtnNewMsg(boolean disableBtnNewMsg) {
+        this.disableBtnNewMsg = disableBtnNewMsg;
+    }
 
     public GcmMessage getGcmMessage() {
         return gcmMessage;
@@ -136,6 +145,9 @@ public class GcmMessageBean extends MessageUtil implements Serializable {
     //all reg_id
     private void getAllRegId() {
         listRegId = grm.getAllRegId();
+        if(!listRegId.isEmpty()){
+            disableBtnNewMsg = false;
+        }
     }
 
     //select checkbox row table
@@ -219,26 +231,26 @@ public class GcmMessageBean extends MessageUtil implements Serializable {
     //new message
     public void newMessage() {
         if (vilidate()) {
+            gcmMessage.setSender(InforAdminBean.fullname());
             ResultLogin result = models.add(gcmMessage);
             if (result.isCheck()) {
                 addSuccessMsg("Thêm thành công");
-                data.add(new GcmMessage(result.getUser_id(), gcmMessage.getTitle(), gcmMessage.getContent(), gcmMessage.getUrl_image(), gcmMessage.getLink(), getDate()));
+                data.add(new GcmMessage(result.getUser_id(), gcmMessage.getTitle(), gcmMessage.getContent(), gcmMessage.getUrl_image(), gcmMessage.getLink(), getDate(), InforAdminBean.fullname()));
                 visibleNewMsg = false;
                 visible = false;
+
                 //sen gcm mesage
-                if (!listRegId.isEmpty()) {
-                    try {
-                        sendMessage(gcmMessage.getTitle(), gcmMessage.getContent(), gcmMessage.getUrl_image(), gcmMessage.getLink(), listRegId);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
+                try {
+                    sendMessage(gcmMessage.getTitle(), gcmMessage.getContent(), gcmMessage.getUrl_image(), gcmMessage.getLink(), listRegId);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
+
                 clearInputText();
             } else {
                 addErrorMsg("Lỗi!");
                 visibleNewMsg = true;
             }
-
         }
 
     }
@@ -294,8 +306,6 @@ public class GcmMessageBean extends MessageUtil implements Serializable {
         builder.addData("url_image", url_image);
         builder.addData("link", link);
 
-        System.out.println("mesage: " + title + "---" + content);
-
         Message message = builder.build();
         MulticastResult result = null;
 
@@ -331,6 +341,48 @@ public class GcmMessageBean extends MessageUtil implements Serializable {
             int error = result.getFailure();
             System.out.println("Broadcast failure: " + error);
         }
+
+    }
+
+    //=================Test============================//
+    
+    public static void main(String[] args) {
+        List<String> listRegId;
+        GcmRegistrationModels grm = new GcmRegistrationModels();
+        listRegId = grm.getAllRegId();
+        try {
+            sendMessage(listRegId);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void sendMessage(List<String> listRegId) throws IOException {
+        String API_KEY = "AIzaSyBF5wUUBph-rpjfxshQOwpBai53D9xFAoo";
+        String collpaseKey = "gcm_message";
+
+        Sender sender = new Sender(API_KEY);
+        Message.Builder builder = new Message.Builder();
+
+        builder.collapseKey(collpaseKey);
+        builder.timeToLive(120);//tuoi tho tin nhan(s). khong set mac dinh la 28 ngay. set = 0 khong gui duoc thi se bi loai bo
+        builder.delayWhileIdle(true);//delay gui lai message khi device hoat dong
+
+        builder.addData("title", "Đinh Thế Luân");
+        builder.addData("content", "Đinh Thế Luân");
+        builder.addData("url_image", "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p160x160/17107_704101356385807_347390781586995188_n.jpg?oh=0ac62d3bd661496eca84eac161e60aa5&oe=565F8C1F&__gda__=1453155506_b3c3a1577a7a5f5ec2122251e3056ff0");
+        builder.addData("link", "https://www.facebook.com/luandt1005");
+
+        Message message = builder.build();
+        MulticastResult result = null;
+
+//        List<String> androidTargets = new ArrayList<String>();
+//        String messageId = "APA91bFhEhgZIrncMUcKvvGdy39QEOhCvrspPWDaqTN0vmjrzSCx83jlN7EZFuNa9yeXZ3uAeUflC51m6Rf5tsb0UjK8eZLROjPbF7PP39AKSf3jYbOrO0E";
+//        androidTargets.add(messageId);
+//        androidTargets.add("vfjfjfa");
+//        result = sender.send(message, androidTargets, 1);
+        result = sender.send(message, listRegId, 1);
+        System.out.println("result = " + result);
 
     }
 }

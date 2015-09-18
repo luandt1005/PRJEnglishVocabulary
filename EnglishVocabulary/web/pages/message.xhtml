@@ -36,7 +36,7 @@
                             <f:facet name="header">
                                 <p:outputPanel autoUpdate="true" id="action">
                                     <p:commandButton icon="fa fa-remove" value="Xóa" disabled="#{gcmMessageBean.disableBtnDelete}" style="float: left" oncomplete="PF('deleteMultiItem').show();" />
-                                    <p:commandButton icon="fa fa-plus" value="Tin nhắn mới" style="float: left" update="main" oncomplete="PF('newMessage').show();" />
+                                    <p:commandButton icon="fa fa-plus" value="Tin nhắn mới" disabled="#{gcmMessageBean.disableBtnNewMsg}" style="float: left" update="main" oncomplete="PF('newMessage').show();" />
                                     <p:commandButton icon="fa fa-refresh" value="Làm mới" style="float: left" onclick="window.location.replace(window.location.href)" />
                                 </p:outputPanel >
                             </f:facet>
@@ -64,6 +64,10 @@
 
                             <p:column headerText="Ngày tạo" >
                                 <h:outputText value="#{msg.date_create}" />
+                            </p:column>
+                            
+                            <p:column headerText="Người gửi" >
+                                <h:outputText value="#{msg.sender}" />
                             </p:column>
 
                             <p:column selectionMode="multiple"  visible="#{gcmMessageBean.visible}" style="width: 35px; text-align: center;" />

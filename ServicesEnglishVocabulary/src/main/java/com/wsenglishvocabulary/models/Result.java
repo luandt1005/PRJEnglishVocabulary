@@ -200,6 +200,7 @@ public class Result {
                 row.put("url_image", arr.get(i).getUrl_image());
                 row.put("link", arr.get(i).getLink());
                 row.put("date_create", arr.get(i).getDate_create());
+                row.put("sender", arr.get(i).getSender());
                 jsonArray.put(row);
             }
             object.put("success", 1);

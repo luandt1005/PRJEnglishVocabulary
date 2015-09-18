@@ -16,6 +16,7 @@ public class GcmMessage {
     private String url_image;
     private String link;
     private String date_create;
+    private String sender;
 
     public GcmMessage() {
     }
@@ -70,6 +71,14 @@ public class GcmMessage {
 
     public void setDate_create(String date_create) {
         this.date_create = date_create;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
     }
     
 }

@@ -62,13 +62,14 @@ public class GcmMessageServicess {
 
     @POST
     @Path("/add")
-    public JSONObject add(@FormParam("title") String title, @FormParam("content") String content, @FormParam("url_image") String url_image, @FormParam("link") String link) {
+    public JSONObject add(@FormParam("title") String title, @FormParam("content") String content, @FormParam("url_image") String url_image, @FormParam("link") String link, @FormParam("sender") String sender) {
         JSONObject json = new JSONObject();
         GcmMessage msg = new GcmMessage();
         msg.setTitle(title);
         msg.setContent(content);
         msg.setUrl_image(url_image);
         msg.setLink(link);
+        msg.setSender(sender);
 
         try {
             long id = model.addMessage(msg);

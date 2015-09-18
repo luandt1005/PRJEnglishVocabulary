@@ -42,8 +42,9 @@ public class GcmMessageModel {
                     String url_image = row.getString("url_image");
                     String link = row.getString("link");
                     String date_create = row.getString("date_create");
+                    String sender = row.getString("sender");
                     date_create = date_create.substring(0, 19);
-                    data.add(new GcmMessage(id, title, content, url_image, link, date_create));
+                    data.add(new GcmMessage(id, title, content, url_image, link, date_create, sender));
                 }
             } catch (JSONException ex) {
                 ex.printStackTrace();
@@ -87,6 +88,7 @@ public class GcmMessageModel {
         form.add("content", msg.getContent());
         form.add("url_image", msg.getUrl_image());
         form.add("link", msg.getLink());
+        form.add("sender", msg.getSender());
         WebResource webResource = client.resource("http://localhost:8080/ServicesEnglishVocabulary/rest/message/add");
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, form);
         if (response.getStatus() != 200) {

@@ -19,18 +19,28 @@ public class GcmMessage implements Serializable {
     private String url_image;
     private String link;
     private String date_create;
+    private String sender;
     private boolean check;
 
     public GcmMessage() {
     }
 
-    public GcmMessage(long id, String title, String content, String url_image, String link, String date_create) {
+    public GcmMessage(long id, String title, String content, String url_image, String link, String date_create, String sender) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.url_image = url_image;
         this.link = link;
         this.date_create = date_create;
+        this.sender = sender;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
     public boolean isCheck() {

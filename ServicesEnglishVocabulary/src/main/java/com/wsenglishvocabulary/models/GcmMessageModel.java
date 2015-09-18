@@ -39,6 +39,7 @@ public class GcmMessageModel {
                 gm.setUrl_image(resultSet.getString(4));
                 gm.setLink(resultSet.getString(5));
                 gm.setDate_create(resultSet.getString(6));
+                gm.setSender(resultSet.getString(7));
 
                 data.add(gm);
             }
@@ -56,13 +57,14 @@ public class GcmMessageModel {
         PreparedStatement ps = null;
         Connection c = null;
         try {
-            String sql = "INSERT INTO gcm_message (title, content, url_image, link) VALUES (?, ?, ?, ?);";
+            String sql = "INSERT INTO gcm_message (title, content, url_image, link, sender) VALUES (?, ?, ?, ?, ?);";
             c = DbPool.getConnection();
             ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, message.getTitle());
             ps.setString(2, message.getContent());
             ps.setString(3, message.getUrl_image());
             ps.setString(4, message.getLink());
+            ps.setString(5, message.getSender());
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
