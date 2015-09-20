@@ -97,7 +97,7 @@ public class UsersModels {
         }
         return new ResultLogin(check, user_id, fullname);
     }
-    
+
     //check exist username
     public boolean checkUsername(String username) throws Exception {
         boolean check = false;
@@ -111,12 +111,12 @@ public class UsersModels {
             resultSet = statement.executeQuery(sql);
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
-                if(count > 0){
+                if (count > 0) {
                     check = true;
                 } else {
                     check = false;
                 }
-                
+
             } else {
                 check = false;
             }
@@ -128,7 +128,7 @@ public class UsersModels {
         }
         return check;
     }
-    
+
     //check exist username
     public boolean checkUserID(long user_id) throws Exception {
         boolean check = false;
@@ -142,12 +142,12 @@ public class UsersModels {
             resultSet = statement.executeQuery(sql);
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
-                if(count > 0){
+                if (count > 0) {
                     check = true;
                 } else {
                     check = false;
                 }
-                
+
             } else {
                 check = false;
             }
@@ -159,5 +159,41 @@ public class UsersModels {
         }
         return check;
     }
-    
+
+    //check username facebook
+    public long checkUsernameFacebook(String username) throws Exception {
+        long id = -1;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        try {
+            String sql = "SELECT * FROM users WHERE username = " + "'" + username + "';";
+            connection = DbPool.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+            } else {
+                String sql1 = "INSERT INTO users VALUES (?, 'a', 'a');";
+                connection = DbPool.getConnection();
+                ps = connection.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
+
+                ps.setString(1, username);
+                ps.executeUpdate();
+
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    id = rs.getInt(1);
+                }
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            DbPool.releaseConnection(connection, statement, resultSet);
+        }
+        return id;
+    }
+
 }

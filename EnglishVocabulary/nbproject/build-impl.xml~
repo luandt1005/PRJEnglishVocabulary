@@ -1002,7 +1002,6 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.jersey-client-1.8.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.jersey-core-1.8.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.org.json-20120521.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.all-themes-1.0.10.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.flat-c.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.json_simple-1.1.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
@@ -1437,7 +1436,6 @@ exists or setup the property manually. For example like this:
         <delete includeEmptyDirs="true" quiet="true">
             <fileset dir="${build.dir.to.clean}/WEB-INF/lib"/>
         </delete>
-        <delete dir="${build.dir}"/>
         <available file="${build.dir.to.clean}/WEB-INF/lib" property="status.clean-failed" type="dir"/>
         <delete dir="${dist.dir}"/>
     </target>

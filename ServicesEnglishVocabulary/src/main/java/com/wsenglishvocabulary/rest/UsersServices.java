@@ -113,4 +113,24 @@ public class UsersServices {
 
         return json;
     }
+    
+    @POST
+    @Path("/facebook")
+    public JSONObject loginFacebook(@FormParam("username") String username) {
+        JSONObject json = new JSONObject();
+
+        try {
+            long id = models.checkUsernameFacebook(username);
+            if (id != -1) {
+                json = Result.successLoginFace(id);
+            } else {
+                json = Result.error("Error.");
+            }
+        } catch (Exception e) {
+            json = Result.error();
+            e.printStackTrace();
+        }
+
+        return json;
+    }
 }

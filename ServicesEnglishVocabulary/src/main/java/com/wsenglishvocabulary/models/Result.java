@@ -42,7 +42,7 @@ public class Result {
         return object;
     }
 
-    //success no arr
+    //success user login
     public static JSONObject successLogin(long user_id, String fullname) {
         JSONObject object = new JSONObject();
         try {
@@ -50,6 +50,19 @@ public class Result {
             object.put("error", 0);
             object.put("user_id", user_id);
             object.put("fullname", fullname);
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+        return object;
+    }
+    
+    //success login facebook
+    public static JSONObject successLoginFace(long user_id) {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("success", 1);
+            object.put("error", 0);
+            object.put("user_id", user_id);
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
