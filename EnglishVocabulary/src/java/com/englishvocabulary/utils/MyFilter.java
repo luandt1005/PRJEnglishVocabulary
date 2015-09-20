@@ -40,11 +40,13 @@ public class MyFilter implements Filter {
 
         //cookie
         Cookie[] cookies = req.getCookies();
-        for (int i = 0; i < cookies.length; i++) {
-            if (cookies[i].getName().equals("username")) {
-                username = cookies[i].getValue();
-                check = true;
-                System.out.println("Cookie--MyFilter: " + cookies[i].getName() + "--" + username);
+        if (cookies != null) {
+            for (int i = 0; i < cookies.length; i++) {
+                if (cookies[i].getName().equals("username")) {
+                    username = cookies[i].getValue();
+                    check = true;
+                    System.out.println("Cookie--MyFilter: " + cookies[i].getName() + "--" + username);
+                }
             }
         }
 
