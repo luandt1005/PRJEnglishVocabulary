@@ -48,6 +48,10 @@
                             <p:column headerText="Nội dung" >
                                 <h:outputText value="#{f.content}" />
                             </p:column>
+                            
+                            <p:column headerText="Ngày gửi" width="90" >
+                                <h:outputText value="#{f.date}" />
+                            </p:column>
 
                             <p:column selectionMode="multiple" visible="#{feedbackBean.visible}" style="width: 35px; text-align: center;" />
                             <p:column style="width: 40px; text-align: center;" headerText="Xóa">

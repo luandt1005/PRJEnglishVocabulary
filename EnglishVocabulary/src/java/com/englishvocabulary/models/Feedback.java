@@ -15,14 +15,16 @@ public class Feedback implements Serializable {
 
     private long id;
     private String content;
+    private String date;
     private boolean check;
 
     public Feedback() {
     }
 
-    public Feedback(long id, String content) {
+    public Feedback(long id, String content, String date) {
         this.id = id;
         this.content = content;
+        this.date = date;
     }
 
     public boolean isCheck() {
@@ -47,6 +49,14 @@ public class Feedback implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
 }

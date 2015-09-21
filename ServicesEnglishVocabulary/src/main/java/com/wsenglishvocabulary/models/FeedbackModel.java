@@ -34,6 +34,7 @@ public class FeedbackModel {
                 Feedback f = new Feedback();
                 f.setId(resultSet.getLong(1));
                 f.setContent(resultSet.getString(2));
+                f.setDate(resultSet.getString(3));
 
                 data.add(f);
             }
@@ -51,7 +52,7 @@ public class FeedbackModel {
         PreparedStatement ps = null;
         Connection c = null;
         try {
-            String sql = "INSERT INTO feedback VALUES (?);";
+            String sql = "INSERT INTO feedback (content) VALUES (?);";
             c = DbPool.getConnection();
             ps = c.prepareStatement(sql);
             ps.setString(1, content);

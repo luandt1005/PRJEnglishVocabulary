@@ -38,7 +38,8 @@ public class FeedbackModels {
                     JSONObject row = array.getJSONObject(i);
                     long id = row.getLong("id");
                     String content = row.getString("content");
-                    data.add(new Feedback(id, content));
+                    String date = row.getString("date");
+                    data.add(new Feedback(id, content, date));
                 }
             } catch (JSONException ex) {
                 ex.printStackTrace();

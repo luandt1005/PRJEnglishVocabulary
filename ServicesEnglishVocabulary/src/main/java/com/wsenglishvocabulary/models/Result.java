@@ -185,6 +185,7 @@ public class Result {
                 row = new JSONObject();
                 row.put("id", arr.get(i).getId());
                 row.put("content", arr.get(i).getContent());
+                row.put("date", arr.get(i).getDate());
                 jsonArray.put(row);
             }
             object.put("success", 1);

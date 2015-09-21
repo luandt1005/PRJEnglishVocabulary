@@ -12,6 +12,7 @@ package com.wsenglishvocabulary.models;
 public class Feedback {
     private long id;
     private String content;
+    private String date;
 
     public Feedback() {
     }
@@ -34,6 +35,14 @@ public class Feedback {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
     
 }
