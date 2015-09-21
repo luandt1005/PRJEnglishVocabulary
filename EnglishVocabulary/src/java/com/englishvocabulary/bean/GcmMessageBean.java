@@ -252,7 +252,6 @@ public class GcmMessageBean extends MessageUtil implements Serializable {
                 visibleNewMsg = true;
             }
         }
-
     }
 
     private boolean vilidate() {
@@ -291,7 +290,7 @@ public class GcmMessageBean extends MessageUtil implements Serializable {
         gcmMessage.setLink("");
     }
 
-    private void sendMessage(String title, String content, String url_image, String link, List<String> listRegId) throws IOException {
+    private static void sendMessage(String title, String content, String url_image, String link, List<String> listRegId) throws IOException {
         String API_KEY = "AIzaSyBF5wUUBph-rpjfxshQOwpBai53D9xFAoo";
         String collpaseKey = "gcm_message";
 
@@ -351,38 +350,9 @@ public class GcmMessageBean extends MessageUtil implements Serializable {
         GcmRegistrationModels grm = new GcmRegistrationModels();
         listRegId = grm.getAllRegId();
         try {
-            sendMessage(listRegId);
+            sendMessage("Đinh Thế Luân", "Đinh Thế Luân", "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p160x160/17107_704101356385807_347390781586995188_n.jpg?oh=0ac62d3bd661496eca84eac161e60aa5&oe=565F8C1F&__gda__=1453155506_b3c3a1577a7a5f5ec2122251e3056ff0", "https://www.facebook.com/luandt1005", listRegId);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
-
-    public static void sendMessage(List<String> listRegId) throws IOException {
-        String API_KEY = "AIzaSyBF5wUUBph-rpjfxshQOwpBai53D9xFAoo";
-        String collpaseKey = "gcm_message";
-
-        Sender sender = new Sender(API_KEY);
-        Message.Builder builder = new Message.Builder();
-
-        builder.collapseKey(collpaseKey);
-        builder.timeToLive(120);//tuoi tho tin nhan(s). khong set mac dinh la 28 ngay. set = 0 khong gui duoc thi se bi loai bo
-        builder.delayWhileIdle(true);//delay gui lai message khi device hoat dong
-
-        builder.addData("title", "Đinh Thế Luân");
-        builder.addData("content", "Đinh Thế Luân");
-        builder.addData("url_image", "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p160x160/17107_704101356385807_347390781586995188_n.jpg?oh=0ac62d3bd661496eca84eac161e60aa5&oe=565F8C1F&__gda__=1453155506_b3c3a1577a7a5f5ec2122251e3056ff0");
-        builder.addData("link", "https://www.facebook.com/luandt1005");
-
-        Message message = builder.build();
-        MulticastResult result = null;
-
-//        List<String> androidTargets = new ArrayList<String>();
-//        String messageId = "APA91bFhEhgZIrncMUcKvvGdy39QEOhCvrspPWDaqTN0vmjrzSCx83jlN7EZFuNa9yeXZ3uAeUflC51m6Rf5tsb0UjK8eZLROjPbF7PP39AKSf3jYbOrO0E";
-//        androidTargets.add(messageId);
-//        androidTargets.add("vfjfjfa");
-//        result = sender.send(message, androidTargets, 1);
-        result = sender.send(message, listRegId, 1);
-        System.out.println("result = " + result);
-
     }
 }
